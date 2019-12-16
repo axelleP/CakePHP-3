@@ -67,7 +67,15 @@ class PagesController extends AppController
         }
     }
 
-    public function index()
+    public function menu1()
+    {
+    }
+
+    public function menu2()
+    {
+    }
+
+    public function menu3()
     {
     }
 }
