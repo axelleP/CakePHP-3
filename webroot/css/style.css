@@ -373,9 +373,7 @@ table thead tr {
 table tr th {
     padding: 0.5625rem 0.625rem;
     font-size: 0.875rem;
-    color: #1798A5;
     text-align: left;
-    border-bottom: 2px solid #1798A5;
 }
 
 table tr:nth-of-type(even) {

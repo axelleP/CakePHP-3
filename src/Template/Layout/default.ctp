@@ -36,8 +36,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?=
         $this->Html->script([
-            'https://code.jquery.com/jquery-3.4.1.min.js',
-            'https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'
+            'https://code.jquery.com/jquery-3.4.1.min.js'
+            , 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'
         ]);
     ?>
 
@@ -56,7 +56,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Flash->render() ?>
 
-    <div class="row col-lg-12 m-0 mt-3 p-4 bg-light"><?= $this->fetch('content') ?></div>
+    <div class="m-0 mt-3 p-4 bg-light"><?= $this->fetch('content') ?></div>
 
     <footer class="row col-lg-12"></footer>
 </body>
