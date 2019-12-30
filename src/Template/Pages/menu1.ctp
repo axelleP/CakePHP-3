@@ -1,26 +1,66 @@
-<h1 class="mb-5 text-center">Titre</h1>
-
-<div class="row mb-5">
-<?php
-echo '<div><span class="col-md-auto">' . $this->Html->image('grey.png', ['alt' => 'Fond gris', 'class' => 'img-thumbnail img-fluid']) . '</span></div>';
-?>
-
-<p class="col-lg-9 align-self-center">
-Potentissimorumque omnis crebris lustratae oculos contentionum bellorum dicam cursibus
-cursibus conferri omnis conferri oculos cursibus crebris ponere libenter nec potuisse
-conferri oculos idque sed tuis saepe nec res magnitudine gestas contentionum omnis conferri
-nec sed omnis potentissimorumque victoriis nostrorum dicam tuis posse peragrari terras
-ponere imperatorum idque idque crebris nec.
-</p>
+<div class="mb-5">
+    <div id="carousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <?php echo $this->Html->image('bg-orange.png', ['alt' => 'First slide', 'class' => 'd-block w-100']) ?>
+                <div class="carousel-caption d-none d-md-block">
+                    <p>Sibi civitates Palaestina nulli Eleutheropolim egregias velut et aevo.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <?php echo $this->Html->image('bg-green.png', ['alt' => 'Second slide', 'class' => 'd-block w-100']) ?>
+            </div>
+            <div class="carousel-item">
+                <?php echo $this->Html->image('bg-blue.png', ['alt' => 'Third slide', 'class' => 'd-block w-100']) ?>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 </div>
 
-<hr>
+<div class="row mb-5">
+    <?php echo '<div class="col-lg-auto col-md-auto col-sm-auto">' . $this->Html->image('bg-grey.png', ['alt' => 'Fond gris', 'class' => 'img-thumbnail img-fluid']) . '</div>'; ?>
 
-<table class="mb-5 table table-hover">
+    <p class="col-lg-8 align-self-center">
+    Potentissimorumque omnis crebris lustratae oculos contentionum bellorum dicam cursibus
+    cursibus conferri omnis conferri oculos cursibus crebris ponere libenter nec potuisse
+    conferri oculos idque sed tuis saepe nec res magnitudine gestas contentionum omnis conferri
+    nec sed omnis potentissimorumque victoriis nostrorum dicam tuis posse peragrari terras
+    ponere imperatorum idque idque crebris nec.
+    </p>
+</div>
+
+<h5>Mandatum :</h5>
+<p class="mb-5 text-justify">
+    Quaestione igitur per multiplices dilatata fortunas cum ambigerentur quaedam, non nulla
+    levius actitata constaret, post multorum clades Apollinares ambo pater et filius in exilium
+    acti cum ad locum Crateras nomine pervenissent, villam scilicet suam quae ab Antiochia
+    vicensimo et quarto disiungitur lapide, ut mandatum est, fractis cruribus occiduntur.
+</p>
+
+<div class="d-flex justify-content-center">
+    <div class="embed-responsive embed-responsive-21by9 mb-5 w-75">
+      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/kL_-Zd__ZIA" allowfullscreen></iframe>
+    </div>
+</div>
+
+<table class="table table-hover mb-5">
 <?php
 echo $this->Html->tableHeaders(
-    ['Colonne 1', 'Colonne 2', 'Colonne 3']
-    , ['class' => 'thead-dark']
+    ['Alios', 'Causa', 'Locum'],
+    ['class' => 'thead-dark']
 );
 echo $this->Html->tableCells([
     ['Filium' , 'Umbratis', 'Velut'],
@@ -30,66 +70,31 @@ echo $this->Html->tableCells([
 ?>
 </table>
 
-<hr>
-
 <div class="mb-5">
-<u class="h5">Liste :</u>
-<?php
-$list = [
-    'Sublimes' => [
-        'Fruticeta' => [
-            'Dumos',
-            'Sobrios',
-            'Maras',
-        ],
-        'Diaconus',
-        'Confessisque',
-    ]
-];
-echo $this->Html->nestedList($list);
-?>
+    <u class="h5">Nomine :</u>
+    <?php
+    $list = [
+        'Sublimes' => [
+            'Fruticeta' => [
+                'Dumos',
+                'Sobrios',
+                'Maras',
+            ],
+            'Diaconus',
+            'Confessisque',
+        ]
+    ];
+    echo $this->Html->nestedList($list);
+    ?>
 </div>
 
-<hr>
-
-<div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="https://placeimg.com/1080/500/animals" alt="First slide">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>My Caption Title (1st Image)</h5>
-                <p>The whole caption will only show up if the screen is at least medium size.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="https://placeimg.com/1080/500/arch" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="https://placeimg.com/1080/500/nature" alt="Third slide">
-        </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-
-<div class="row col-md-1 ml-auto">
-    <?php echo $this->Html->image('fleche_haut.png', ['alt' => 'Flèche en haut', 'id' => 'retour', 'style' => 'cursor:pointer;'])?>
+<div class="text-right">
+    <?php echo $this->Html->image('fleche-haut.png', ['alt' => 'Flèche en haut', 'id' => 'btn-retour', 'class' => 'btn1'])?>
 </div>
 
 <script>
 $(function(){
-    $("#retour").click(function(){
+    $("#btn-retour").click(function(){
         $("html, body").animate({scrollTop: 0},"slow");
     });
 });

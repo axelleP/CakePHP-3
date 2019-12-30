@@ -45,19 +45,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body class="overflow-auto container border p-0">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <ul class="navbar-nav">
-          <li class="nav-item"><?= $this->Html->link('Menu 1', '/pages/menu1', ['class' => "nav-link"]) ?></li>
-          <li class="nav-item"><?= $this->Html->link('Menu 2', '/pages/menu2', ['class' => "nav-link"]) ?></li>
-          <li class="nav-item"><?= $this->Html->link('Menu 3', '/pages/menu3', ['class' => "nav-link"]) ?></li>
-        </ul>
-    </nav>
+<body>
+    <div class="container">
+        <div class="mx-5 p-0 overflow-auto border shadow">
+            <nav class="navbar navbar-expand navbar-dark bg-dark">
+                <ul class="navbar-nav">
+                  <li class="nav-item"><?= $this->Html->link('Menu 1', '/pages/menu1', ['class' => "nav-link"]) ?></li>
+                  <li class="nav-item"><?= $this->Html->link('Menu 2', '/pages/menu2', ['class' => "nav-link"]) ?></li>
+                  <li class="nav-item"><?= $this->Html->link('Menu 3', '/pages/menu3', ['class' => "nav-link"]) ?></li>
+                </ul>
+            </nav>
 
-    <?= $this->Flash->render() ?>
+            <?= $this->Flash->render() ?>
 
-    <div class="m-0 mt-3 p-4 bg-light"><?= $this->fetch('content') ?></div>
+            <div class="p-4"><?= $this->fetch('content') ?></div>
 
-    <footer class="row col-lg-12"></footer>
+            <footer class="col-lg-12"></footer>
+        </div>
+    </div>
 </body>
 </html>
