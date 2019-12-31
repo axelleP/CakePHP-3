@@ -520,11 +520,3 @@ table td {
     vertical-align: top;
     word-break: break-all;
 }
-
-.btn1 {
-    cursor:pointer;
-    opacity: 0.8;
-}
-.btn1:hover {
-    opacity: 1;
-}

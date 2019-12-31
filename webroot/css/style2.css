@@ -1,0 +1,16 @@
+.btn1 {
+    cursor:pointer;
+    opacity: 0.8;
+}
+.btn1:hover {
+    opacity: 1;
+}
+
+.btnArticle a {
+    color:white;
+}
+
+.btnArticle a:hover {
+    color:white;
+    text-decoration:none;
+}

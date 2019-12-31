@@ -66,16 +66,4 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
-
-    public function menu1()
-    {
-    }
-
-    public function menu2()
-    {
-    }
-
-    public function menu3()
-    {
-    }
 }

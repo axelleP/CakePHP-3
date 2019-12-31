@@ -30,6 +30,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         $this->Html->css([
             'base.css'
             , 'style.css'
+            , 'style2.css'
             , 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'
         ]);
     ?>
@@ -49,16 +50,28 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div class="container">
         <div class="mx-5 p-0 overflow-auto border shadow">
             <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <ul class="navbar-nav">
-                  <li class="nav-item"><?= $this->Html->link('Menu 1', '/pages/menu1', ['class' => "nav-link"]) ?></li>
-                  <li class="nav-item"><?= $this->Html->link('Menu 2', '/pages/menu2', ['class' => "nav-link"]) ?></li>
-                  <li class="nav-item"><?= $this->Html->link('Menu 3', '/pages/menu3', ['class' => "nav-link"]) ?></li>
-                </ul>
+                <div class="row">
+                    <ul class="navbar-nav col-lg-7">
+                      <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/accueil', ['class' => "nav-link"]) ?></li>
+                      <li class="nav-item"><?= $this->Html->link('Articles', '/articles/index', ['class' => "nav-link"]) ?></li>
+                      <li class="nav-item"><?= $this->Html->link('Menu 3', '/pages/menu3', ['class' => "nav-link"]) ?></li>
+                    </ul>
+
+                    <form class="form-inline col-lg-4">
+                        <input class="form-control my-2 mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
             </nav>
 
             <?= $this->Flash->render() ?>
 
-            <div class="p-4"><?= $this->fetch('content') ?></div>
+            <div class="p-4">
+            <?=
+            $this->fetch('content');
+            echo $this->element('utility/back_top');
+            ?>
+            </div>
 
             <footer class="col-lg-12"></footer>
         </div>
