@@ -93,7 +93,7 @@
 </form>
 
 <div class="btnArticle">
-    <button type="button" class="btn btn-dark"><?= $this->Html->link('Retour aux articles', '/articles/index') ?></button>
-    <button type="button" class="btn btn-dark"><?= $this->Html->link('Article précédent', '/articles/view') ?></button>
-    <button type="button" class="btn btn-dark"><?= $this->Html->link('Article suivant', '/articles/view') ?></button>
+    <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Retour aux articles', '/articles/index') ?></button>
+    <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Article précédent', '/articles/view') ?></button>
+    <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Article suivant', '/articles/view') ?></button>
 </div>

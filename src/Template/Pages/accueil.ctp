@@ -31,7 +31,7 @@
 </div>
 
 <div class="row mb-5">
-    <?php echo '<div class="col-lg-auto col-md-auto col-sm-auto">' . $this->Html->image('bg-grey.png', ['alt' => 'Fond gris', 'class' => 'img-thumbnail img-fluid']) . '</div>'; ?>
+    <?php echo '<div class="col-lg-auto col-md-auto col-sm-auto">' . $this->Html->image('bg-grey-225x225.png', ['alt' => 'Fond gris', 'class' => 'img-thumbnail img-fluid']) . '</div>'; ?>
 
     <p class="col-lg-8 align-self-center">
     Potentissimorumque omnis crebris lustratae oculos contentionum bellorum dicam cursibus
