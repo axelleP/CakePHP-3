@@ -8,11 +8,13 @@ use Cake\View\Exception\MissingTemplateException;
 
 class ArticlesController extends AppController
 {
-    public function index()
+    public function showList($isPopulaire = false)
     {
+        $this->render('list');
     }
 
-    public function view()
+    public function showView()
     {
+        $this->render('view');
     }
 }

@@ -52,9 +52,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <div class="row">
                     <ul class="navbar-nav col-lg-7">
-                      <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/accueil', ['class' => "nav-link"]) ?></li>
-                      <li class="nav-item"><?= $this->Html->link('Articles', '/articles/index', ['class' => "nav-link"]) ?></li>
-                      <li class="nav-item"><?= $this->Html->link('Menu 3', '/pages/menu3', ['class' => "nav-link"]) ?></li>
+                      <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/showHome', ['class' => "nav-link"]) ?></li>
+                      <li class="nav-item"><?= $this->Html->link('Articles', '/articles/showList', ['class' => "nav-link"]) ?></li>
+                      <li class="nav-item"><?= $this->Html->link('Articles populaires', '/articles/showList/true', ['class' => "nav-link"]) ?></li>
                     </ul>
 
                     <form class="form-inline col-lg-4">
@@ -73,7 +73,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             ?>
             </div>
 
-            <footer class="col-lg-12"></footer>
+            <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+                <div class="container text-center">
+                    <small>Copyright &copy; Your Website</small>
+                </div>
+            </footer>
         </div>
     </div>
 </body>

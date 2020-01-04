@@ -1,3 +1,5 @@
+<?= $this->element('utility/breadcrumb'); ?>
+
 <div class="mb-5">
     <div id="carousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -44,10 +46,14 @@
 
 <h5>Mandatum :</h5>
 <p class="mb-5 text-justify">
-    Quaestione igitur per multiplices dilatata fortunas cum ambigerentur quaedam, non nulla
-    levius actitata constaret, post multorum clades Apollinares ambo pater et filius in exilium
-    acti cum ad locum Crateras nomine pervenissent, villam scilicet suam quae ab Antiochia
-    vicensimo et quarto disiungitur lapide, ut mandatum est, fractis cruribus occiduntur.
+    Saepissime igitur mihi de amicitia cogitanti maxime illud considerandum videri solet, utrum
+    propter imbecillitatem atque inopiam desiderata sit amicitia, ut dandis recipiendisque meritis
+    quod quisque minus per se ipse posset, id acciperet ab alio vicissimque redderet, an esset
+    hoc quidem proprium amicitiae, sed antiquior et pulchrior et magis a natura ipsa profecta
+    alia causa. Amor enim, ex quo amicitia nominata est, princeps est ad benevolentiam
+    coniungendam. Nam utilitates quidem etiam ab iis percipiuntur saepe qui simulatione amicitiae
+    coluntur et observantur temporis causa, in amicitia autem nihil fictum est, nihil simulatum
+    et, quidquid est, id est verum et voluntarium.
 </p>
 
 <div class="d-flex justify-content-center">
@@ -59,18 +65,19 @@
 <table class="table table-hover mb-5">
 <?php
 echo $this->Html->tableHeaders(
-    ['Alios', 'Causa', 'Locum'],
+    ['Alios', 'Causa', 'Locum', 'Verum'],
     ['class' => 'thead-dark']
 );
 echo $this->Html->tableCells([
-    ['Filium' , 'Umbratis', 'Velut'],
-    ['Passurum', 'Tunica', 'Muros'],
-    ['Mandato', 'Rector', 'Latus'],
+    ['Filium' , 'Umbratis', 'Velut', 'Calcibus'],
+    ['Passurum', 'Tunica', 'Muros', 'Fratrem'],
+    ['Mandato', 'Rector', 'Latus', 'Vero'],
+
 ]);
 ?>
 </table>
 
-<div class="mb-5">
+<div>
     <u class="h5">Nomine :</u>
     <?php
     $list = [
