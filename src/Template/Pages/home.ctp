@@ -1,4 +1,7 @@
-<?= $this->element('utility/breadcrumb'); ?>
+<?php
+$this->Breadcrumbs->add('Accueil', ['controller' => 'Pages', 'action' => 'showHome']);
+echo $this->element('utility/breadcrumb');
+?>
 
 <div class="mb-5">
     <div id="carousel" class="carousel slide" data-ride="carousel">

@@ -58,7 +58,7 @@ class PagesController extends AppController
         $this->set(compact('page', 'subpage'));
 
         try {
-            if ($page == 'showHome') {
+            if ($page == 'show-home') {
                 $this->render('home');
             } else {
                 $this->render(implode('/', $path));

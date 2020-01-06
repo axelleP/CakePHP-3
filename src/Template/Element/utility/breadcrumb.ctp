@@ -1,7 +1,10 @@
-<nav aria-label="breadcrumb" class="row d-flex mb-3">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><?= $this->Html->link('Articles', '/articles/showList') ?></li>
-    <li class="breadcrumb-item"><?= $this->Html->link('Article', '/articles/showView') ?></li>
-    <li class="breadcrumb-item active" aria-current="page">Exemple</li>
-  </ol>
-</nav>
+<?php
+$this->Breadcrumbs->templates([
+    'wrapper' => ''
+    . '<nav aria-label="breadcrumb" class="row d-flex mb-3">'
+    . '<ol class="breadcrumb"{{attrs}}>{{content}}</ol>'
+    . '</nav>',
+    'item' => '<li class="breadcrumb-item" {{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}',
+]);
+
+echo $this->Breadcrumbs->render();
