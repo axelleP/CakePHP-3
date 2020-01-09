@@ -6,9 +6,9 @@ $this->Breadcrumbs->add([
 echo $this->element('utility/breadcrumb');
 ?>
 
-<h1 class="text-center mb-5"><?php echo ucfirst($article->titre); ?></h1>
+<h1 class="text-center mb-5"><?= ucfirst($article->titre); ?></h1>
 
-<div class="mb-5"><?php echo nl2br($article->contenu); ?></div>
+<div class="mb-5"><?= nl2br($article->contenu); ?></div>
 
 SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
 <br/><br/>
@@ -41,60 +41,44 @@ Partage sur les réseaux sociaux
     </form>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                </div>
-            </div>
-
-            <div class="col-sm-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                    </div>
-
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="thumbnail">
+        <?php
+            foreach ($commentaires as $commentaire) {
+        ?>
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="thumbnail">
                     <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                </div>
-            </div>
-
-            <div class="col-sm-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                    </div>
-
-                    <div class="panel-body">
-                        Panel content
                     </div>
                 </div>
+
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong><?= $commentaire->user->username; ?></strong> <span class="text-muted">Le <?= $this->Time->format($commentaire->dateCreation) ?></span>
+                        </div>
+
+                        <div class="panel-body"><?= nl2br($commentaire->commentaire); ?></div>
+                    </div>
+                </div>
             </div>
+        <?php
+            }
+        ?>
+    </div>
+
+    <?php
+    if ($this->Paginator->counter() != '1 of 1') {
+    ?>
+        <div class="d-flex justify-content-center">
+            <nav aria-label="pagination">
+              <ul class="pagination">
+                <?= $this->Paginator->prev('Précédent') ?>
+                <?= $this->Paginator->numbers(); ?>
+                <?= $this->Paginator->next('Suivant') ?>
+              </ul>
+            </nav>
         </div>
-    </div>
-
-    <div class="d-flex justify-content-center">
-        <nav aria-label="pagination">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Suivant</a>
-            </li>
-          </ul>
-        </nav>
-    </div>
+    <?php
+    }
+    ?>
 </div>
