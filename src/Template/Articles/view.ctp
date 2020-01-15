@@ -33,12 +33,15 @@ Partage sur les réseaux sociaux
 </div>
 
 <div class="border p-2">
-    <form class="mb-5">
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Ajouter un commentaire</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
-    </form>
+    <h4>Commentaires</h4>
+    <?php
+        echo $this->Form->create($commentaire, ['url' => ['controller' => 'Commentaires', 'action' => 'create']]);
+        echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Nom', 'required' => true]);
+        echo $this->Form->control('email', ['type' => 'email', 'label' => false, 'placeholder' => 'Email', 'required' => true]);
+        echo $this->Form->control('commentaire', ['label' => false, 'placeholder' => 'Commentaire', 'required' => true]);
+        echo $this->Form->button('Ajouter');
+        echo $this->Form->end();
+    ?>
 
     <div class="container">
         <?php
