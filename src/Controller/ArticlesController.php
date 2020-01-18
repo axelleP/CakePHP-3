@@ -7,6 +7,7 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 use App\Model\Entity\Commentaire;
 use App\Model\Entity\Rubrique;
@@ -28,23 +29,20 @@ class ArticlesController extends AppController
 
     public function showList($tabConditions = array())
     {
+        //articles
+        $tabParamsSQL = array('contain' => ['Rubriques']);
         if (isset($_POST['rubrique_id']) && !empty($_POST['rubrique_id'])) {
-            $query_article = $this->Articles->find('all', [
-                'conditions' => ['rubrique_id =' => $_POST['rubrique_id']],
-                'contain' => ['Rubriques']
-            ]);
-        } else {
-            $query_article = $this->Articles->find('all', ['contain' => ['Rubriques']]);
+            $tabParamsSQL['conditions'] = ['rubrique_id =' => $_POST['rubrique_id']];
         }
-
+        $query_article = $this->Articles->find('all', $tabParamsSQL);
         $query_article->toArray();//exécute la requête
         $articles = $this->paginate($query_article);
 
+        //rubriques
         $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
         $query_rubrique = $table_rubrique->find('all');
         $rubriques = $query_rubrique->toArray();//exécute la requête
         $listeRubriques = array();
-
         foreach ($rubriques as $rubrique) {
             $listeRubriques[$rubrique->id] = $rubrique->nom;
         }
@@ -58,6 +56,19 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->get($id);
 
+        $commentaire = new Commentaire();
+        $dataFormCom = $this->request->data;
+        if (!empty($dataFormCom)) {//soumission du formulaire commentaire
+            $commentaire = $this->createCommentaire($dataFormCom);
+
+            //nouvelle entité + remet le formulaire à vide
+            if (!$commentaire->errors()) {
+                $commentaire = new Commentaire();
+                $this->request->data = null;
+            }
+        }
+
+        //article précédent
         $query_articlePrecedent = $this->Articles->find('all', [
             'conditions' => ['id <' => $id],
             'order' => 'id DESC',
@@ -66,6 +77,7 @@ class ArticlesController extends AppController
         $articlePrecedent = $query_articlePrecedent->first();
         $idArticlePrecedent = (!empty($articlePrecedent)) ? $articlePrecedent->id : null;
 
+        //article suivant
         $query_articleSuivant = $this->Articles->find('all', [
             'conditions' => ['id >' => $id],
             'order' => 'id DESC',
@@ -74,15 +86,15 @@ class ArticlesController extends AppController
         $articleSuivant = $query_articleSuivant->first();
         $idArticleSuivant = (!empty($articleSuivant)) ? $articleSuivant->id : null;
 
+        //commentaires
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
         $query_commentaires = $table_commentaire->find('all', [
             'conditions' => ['article_id =' => $id],
-            'contain' => ['Users']
+            'contain' => ['Users'],
+            'order' => 'dateCreation DESC'
         ]);
         $query_commentaires->toArray();//exécute la requête
         $commentaires = $this->paginate($query_commentaires);
-
-        $commentaire = new Commentaire();
 
         $this->set([
             'article' => $article,
@@ -93,5 +105,33 @@ class ArticlesController extends AppController
         ]);
 
         $this->render('view');
+    }
+
+    public function createCommentaire($dataForm) {
+        $table_user = TableRegistry::getTableLocator()->get('Users');
+        //recherche de l'utilisateur en bdd
+        $query_user = $table_user->find('all', [
+            'conditions' => ['email =' => $dataForm['email']],
+            'limit' => 1
+        ]);
+        $user = $query_user->first();
+        //s'il n'existe pas on le crée
+        if (empty($user)) {
+            $user = $table_user->newEntity();
+            $user->set('username', $dataForm['username']);
+            $user->set('email', $dataForm['email']);
+            $table_user->save($user);
+        }
+
+        //création du commentaire en bdd si l'objet est valide (vérification par newEntity())
+        $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
+        $dataForm['user_id'] = $user->id;
+        $dataForm['dateCreation'] = Time::now();
+        $commentaire = $table_commentaire->newEntity($dataForm);
+        if (!$commentaire->errors()) {
+            $table_commentaire->save($commentaire);
+        }
+
+        return $commentaire;
     }
 }

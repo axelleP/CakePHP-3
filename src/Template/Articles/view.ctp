@@ -18,27 +18,32 @@ Partage sur les réseaux sociaux
 <div class="btnArticle mb-5">
     <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Retour aux articles', '/articles/show-list') ?></button>
     <?php
-    if (!empty($idArticlePrecedent)) {
-    ?>
-        <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Article précédent', '/articles/show-view/' . $idArticlePrecedent) ?></button>
-    <?php
-    }
-
-    if (!empty($idArticleSuivant)) {
-    ?>
-        <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Article suivant', '/articles/show-view/' . $idArticleSuivant) ?></button>
-    <?php
-    }
+    if (!empty($idArticlePrecedent)) { ?> <button type="button" class="btn btn-dark mb-1"> <?= $this->Html->link('Article précédent', '/articles/show-view/' . $idArticlePrecedent) ?> </button> <?php }
+    if (!empty($idArticleSuivant)) { ?> <button type="button" class="btn btn-dark mb-1"> <?= $this->Html->link('Article suivant', '/articles/show-view/' . $idArticleSuivant) ?> </button> <?php }
     ?>
 </div>
 
-<div class="border p-2">
+<div class="border p-2" id="espaceCommentaire">
     <h4>Commentaires</h4>
     <?php
-        echo $this->Form->create($commentaire, ['url' => ['controller' => 'Commentaires', 'action' => 'create']]);
-        echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Nom', 'required' => true]);
-        echo $this->Form->control('email', ['type' => 'email', 'label' => false, 'placeholder' => 'Email', 'required' => true]);
-        echo $this->Form->control('commentaire', ['label' => false, 'placeholder' => 'Commentaire', 'required' => true]);
+        $css_borderRed = 'border-color:red;';
+        echo $this->Form->create($commentaire, ['url' => ['action' => 'show-view/' . $article->id, '#' => 'espaceCommentaire'], 'templates' => 'form-template']);
+        echo $this->Form->hidden('article_id', ['value' => $article->id]);
+        if ($this->Form->isFieldError('username')) {
+            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Nom', 'required' => 0, 'style' => $css_borderRed]);
+        } else {
+            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Nom', 'required' => 0]);
+        }
+        if ($this->Form->isFieldError('email')) {
+            echo $this->Form->control('email', ['type' => 'email', 'label' => false, 'placeholder' => 'Email', 'required' => 0, 'style' => $css_borderRed]);
+        } else {
+            echo $this->Form->control('email', ['type' => 'email', 'label' => false, 'placeholder' => 'Email', 'required' => 0]);
+        }
+        if ($this->Form->isFieldError('commentaire')) {
+            echo $this->Form->control('commentaire', ['label' => false, 'placeholder' => 'Commentaire', 'required' => 0, 'style' => $css_borderRed]);
+        } else {
+            echo $this->Form->control('commentaire', ['label' => false, 'placeholder' => 'Commentaire', 'required' => 0]);
+        }
         echo $this->Form->button('Ajouter');
         echo $this->Form->end();
     ?>
@@ -70,7 +75,7 @@ Partage sur les réseaux sociaux
     </div>
 
     <?php
-    if ($this->Paginator->counter() != '1 of 1') {
+    if ($this->Paginator->total('Commentaires') > 1) {
     ?>
         <div class="d-flex justify-content-center">
             <nav aria-label="pagination">

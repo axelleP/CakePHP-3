@@ -3,10 +3,11 @@ $this->Breadcrumbs->add('Articles', ['controller' => 'Articles', 'action' => 'sh
 echo $this->element('utility/breadcrumb');
 ?>
 
+<h5>Choisir une rubrique :</h5>
 <?php
 echo $this->Form->create('', ['id' => 'formRubrique']);
 echo $this->Form->select('rubrique_id', $listeRubriques, [
-    'empty' => 'Choisir une rubrique'
+    'empty' => '--Choisissez--'
     , 'id' => 'rubrique'
     , 'onchange'=>'$("#formRubrique").submit();'
 ]);
@@ -33,7 +34,7 @@ echo $this->Form->end();
 </div>
 
 <?php
-if ($this->Paginator->counter() != '1 of 1') {
+if ($this->Paginator->total('Articles') > 1) {
 ?>
     <div class="d-flex justify-content-center">
         <nav aria-label="pagination">

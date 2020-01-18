@@ -57,10 +57,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                       <li class="nav-item"><?= $this->Html->link('Articles populaires', '/articles/show-list/' . serialize(array('isPopulaire' => true)), ['class' => "nav-link"]) ?></li>
                     </ul>
 
-                    <form class="form-inline col-lg-4">
-                        <input class="form-control my-2 mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <?php
+                        echo $this->Form->create('', ['class' => 'form-inline col-lg-4', 'templates' => 'formSearch-template']);
+                        echo $this->Form->text('search', ['type' => 'search', 'label' => 'Rechercher', 'placeholder' => 'Rechercher', 'class' => 'form-control my-2 mr-sm-2']);
+                        echo $this->Form->button('Rechercher', ['class' => 'btn btn-outline-primary my-2 my-sm-0']);
+                        echo $this->Form->end();
+                    ?>
                 </div>
             </nav>
 
