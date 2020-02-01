@@ -15,7 +15,7 @@ SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
 Partage sur les réseaux sociaux
 <br/><br/>
 
-<div class="btnArticle mb-5">
+<div class="buttonsArticle mb-5">
     <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Retour aux articles', '/articles/show-list') ?></button>
     <?php
     if (!empty($idArticlePrecedent)) { ?> <button type="button" class="btn btn-dark mb-1"> <?= $this->Html->link('Article précédent', '/articles/show-view/' . $idArticlePrecedent) ?> </button> <?php }
@@ -50,7 +50,7 @@ Partage sur les réseaux sociaux
 
     <div class="container">
         <?php
-            foreach ($commentaires as $commentaire) {
+        foreach ($commentaires as $commentaire) {
         ?>
             <div class="row">
                 <div class="col-sm-1">
@@ -68,9 +68,17 @@ Partage sur les réseaux sociaux
                         <div class="panel-body"><?= nl2br($commentaire->commentaire); ?></div>
                     </div>
                 </div>
+
+                <div class="col-sm-1">
+                    <?= $this->Html->link('Répondre', '#', ['id' => 'linkRepondre_' . $commentaire->id, 'onclick' => "js:displayFormCom(" . $commentaire->id . ");return false;"]) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-1" style="display:none;" id="formCom_<?= $commentaire->id; ?>">TEST</div>
             </div>
         <?php
-            }
+        }
         ?>
     </div>
 
@@ -90,3 +98,15 @@ Partage sur les réseaux sociaux
     }
     ?>
 </div>
+
+<script type="text/javascript">
+    function displayFormCom(id) {
+        $formComId = "#formCom_"+id;
+
+        if ($($formComId).is(":hidden")) {
+            $($formComId).show("slow");
+        } else {
+            $($formComId).hide("slow");
+        }
+    }
+</script>

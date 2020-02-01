@@ -58,9 +58,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </ul>
 
                     <?php
-                        echo $this->Form->create('', ['class' => 'form-inline col-lg-4', 'templates' => 'formSearch-template']);
-                        echo $this->Form->text('search', ['type' => 'search', 'label' => 'Rechercher', 'placeholder' => 'Rechercher', 'class' => 'form-control my-2 mr-sm-2']);
-                        echo $this->Form->button('Rechercher', ['class' => 'btn btn-outline-primary my-2 my-sm-0']);
+                        echo $this->Form->create('', ['templates' => 'formSearch-template', 'url' => ['controller' => 'Articles', 'action' => 'show-list']]);
+                        echo $this->Form->text('keyword', ['type' => 'search', 'label' => 'Rechercher', 'placeholder' => 'Rechercher']);
+                        echo $this->Form->button('Rechercher');
                         echo $this->Form->end();
                     ?>
                 </div>

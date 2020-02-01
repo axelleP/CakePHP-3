@@ -1,5 +1,5 @@
 <div class="text-right mt-3">
-    <?php echo $this->Html->image('fleche-haut.png', ['alt' => 'Flèche en haut', 'id' => 'btn-retour', 'class' => 'btn1'])?>
+    <?php echo $this->Html->image('fleche-haut.png', ['alt' => 'Flèche en haut', 'id' => 'btn-retour', 'class' => 'commonBtn'])?>
 </div>
 
 <script>

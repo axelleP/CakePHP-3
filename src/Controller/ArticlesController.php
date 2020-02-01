@@ -17,7 +17,7 @@ class ArticlesController extends AppController
     public $paginate = [
         'Articles' => [
             'fields' => ['Articles.id'],
-            'limit' => 2,
+            'limit' => 1,
             'order' => ['Articles.titre' => 'asc']
         ],
         'Commentaires' => [
@@ -27,13 +27,39 @@ class ArticlesController extends AppController
         ]
     ];
 
-    public function showList($tabConditions = array())
+    public function showList($conditions = '')
     {
+        //récupération des conditions pour la requête article
+        $rubrique_id = null;
+        $tabConditions = array();
+        if (!empty($conditions)) {
+            $tabConditions = unserialize($conditions);
+        } elseif (!empty($_GET)) {
+            if (isset($_GET['conditions'])) {
+                $tabConditions = unserialize($_GET['conditions']);
+            } else {
+                $tabConditions = $_GET;
+            }
+        } elseif (!empty($_POST)) {
+            $tabConditions = $_POST;
+        }
+
+        if (isset($tabConditions['rubrique_id']) && !empty($tabConditions['rubrique_id'])) {
+            $rubrique_id = $tabConditions['rubrique_id'];
+        }
+
         //articles
         $tabParamsSQL = array('contain' => ['Rubriques']);
-        if (isset($_POST['rubrique_id']) && !empty($_POST['rubrique_id'])) {
-            $tabParamsSQL['conditions'] = ['rubrique_id =' => $_POST['rubrique_id']];
+        $tabConditionsSQL = array();
+        if (isset($tabConditions['keyword'])) {
+            $tabConditionsSQL[] = "(titre LIKE '%" . $tabConditions['keyword'] . "%'"
+            . " OR Articles.descriptif LIKE '%" . $tabConditions['keyword'] . "%'"
+            . " OR contenu LIKE '%" . $tabConditions['keyword'] . "%')";
         }
+        if (!empty($rubrique_id)) {
+            $tabConditionsSQL[] = 'rubrique_id =' . $rubrique_id;
+        }
+        $tabParamsSQL['conditions'] = $tabConditionsSQL;
         $query_article = $this->Articles->find('all', $tabParamsSQL);
         $query_article->toArray();//exécute la requête
         $articles = $this->paginate($query_article);
@@ -47,7 +73,12 @@ class ArticlesController extends AppController
             $listeRubriques[$rubrique->id] = $rubrique->nom;
         }
 
-        $this->set(array('articles' => $articles, 'listeRubriques' => $listeRubriques));
+        $this->set(array(
+            'articles' => $articles,
+            'listeRubriques' => $listeRubriques,
+            'rubrique_id' => $rubrique_id,
+            'tabConditions' => $tabConditions
+        ));
 
         $this->render('/Articles/list');
     }
