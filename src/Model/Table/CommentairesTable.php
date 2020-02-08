@@ -9,6 +9,10 @@ class CommentairesTable extends Table
     public function initialize(array $config)
     {
         $this->belongsTo('Users');
+        $this->hasMany('Commentaires2', [
+            'className' => 'Commentaires',//table Commentaires
+            'foreignKey' => 'commentaire_id'//clé étrangère commentaire_id
+        ]);
     }
 
     public function validationDefault(Validator $validator)

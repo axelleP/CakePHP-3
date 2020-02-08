@@ -1,6 +1,6 @@
 <?php
 $this->Breadcrumbs->add('Articles', ['controller' => 'Articles', 'action' => 'showList']);
-echo $this->element('utility/breadcrumb');
+echo $this->element('Utility/breadcrumb');
 
 if ($articles->count() != 0) {
     echo '<div style="font-size:1.1em; text-align:center;">' . $this->Paginator->total('Articles') . ' article(s) trouvé(s)';

@@ -3,7 +3,7 @@ $this->Breadcrumbs->add([
     ['title' => 'Articles', 'url' => ['controller' => 'Articles', 'action' => 'showList']],
     ['title' => $article->titre, 'url' => ['controller' => 'Articles', 'action' => 'showView', $article->id]]
 ]);
-echo $this->element('utility/breadcrumb');
+echo $this->element('Utility/breadcrumb');
 ?>
 
 <h1 class="text-center mb-5"><?= ucfirst($article->titre); ?></h1>
@@ -25,32 +25,12 @@ Partage sur les réseaux sociaux
 
 <div class="border p-2" id="espaceCommentaire">
     <h4>Commentaires</h4>
-    <?php
-        $css_borderRed = 'border-color:red;';
-        echo $this->Form->create($commentaire, ['url' => ['action' => 'show-view/' . $article->id, '#' => 'espaceCommentaire'], 'templates' => 'form-template']);
-        echo $this->Form->hidden('article_id', ['value' => $article->id]);
-        if ($this->Form->isFieldError('username')) {
-            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Nom', 'required' => 0, 'style' => $css_borderRed]);
-        } else {
-            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Nom', 'required' => 0]);
-        }
-        if ($this->Form->isFieldError('email')) {
-            echo $this->Form->control('email', ['type' => 'email', 'label' => false, 'placeholder' => 'Email', 'required' => 0, 'style' => $css_borderRed]);
-        } else {
-            echo $this->Form->control('email', ['type' => 'email', 'label' => false, 'placeholder' => 'Email', 'required' => 0]);
-        }
-        if ($this->Form->isFieldError('commentaire')) {
-            echo $this->Form->control('commentaire', ['label' => false, 'placeholder' => 'Commentaire', 'required' => 0, 'style' => $css_borderRed]);
-        } else {
-            echo $this->Form->control('commentaire', ['label' => false, 'placeholder' => 'Commentaire', 'required' => 0]);
-        }
-        echo $this->Form->button('Ajouter');
-        echo $this->Form->end();
-    ?>
+    <?= $this->element('Commentaires/form'); ?>
+    </br>
 
     <div class="container">
         <?php
-        foreach ($commentaires as $commentaire) {
+        foreach ($commentaires as $com) {
         ?>
             <div class="row">
                 <div class="col-sm-1">
@@ -62,20 +42,29 @@ Partage sur les réseaux sociaux
                 <div class="col-sm-5">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong><?= $commentaire->user->username; ?></strong> <span class="text-muted">Le <?= $this->Time->format($commentaire->dateCreation) ?></span>
+                            <strong><?= $com->user->username; ?></strong> <span class="text-muted">Le <?= $this->Time->format($com->dateCreation) ?></span>
                         </div>
 
-                        <div class="panel-body"><?= nl2br($commentaire->commentaire); ?></div>
+                        <div class="panel-body"><?= nl2br($com->commentaire); ?></div>
                     </div>
                 </div>
 
                 <div class="col-sm-1">
-                    <?= $this->Html->link('Répondre', '#', ['id' => 'linkRepondre_' . $commentaire->id, 'onclick' => "js:displayFormCom(" . $commentaire->id . ");return false;"]) ?>
+                    <?= $this->Html->link('Répondre', '#', ['id' => 'linkRepondre_' . $com->id, 'onclick' => "js:displayFormCom(" . $com->id . ");return false;"]) ?>
                 </div>
             </div>
+        <?php
+            if (!empty($com->commentaires2)) {
+                foreach ($com->commentaires2 as $com2) {
+//                    echo 'ok<br/>';
+                }
+            }
+        ?>
 
-            <div class="row">
-                <div class="col-sm-1" style="display:none;" id="formCom_<?= $commentaire->id; ?>">TEST</div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-8" style="display:none;" id="formCom_<?= $com->id; ?>">
+                    <?= $this->element('Commentaires/form', ['commentaire_id' => $com->id]); ?>
+                </div>
             </div>
         <?php
         }
@@ -101,12 +90,18 @@ Partage sur les réseaux sociaux
 
 <script type="text/javascript">
     function displayFormCom(id) {
-        $formComId = "#formCom_"+id;
+        $formComId = "formCom_"+id;
 
-        if ($($formComId).is(":hidden")) {
-            $($formComId).show("slow");
+        if ($("#" + $formComId).is(":hidden")) {
+            $("#" + $formComId).show("slow");
         } else {
-            $($formComId).hide("slow");
+            $("#" + $formComId).hide("slow");
         }
+
+        $("[id^=formCom_").each(function() {
+            if ($(this).attr('id') !== $formComId) {
+                $(this).hide("slow");
+            }
+        });
     }
 </script>

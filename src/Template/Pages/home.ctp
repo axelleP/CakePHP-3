@@ -1,6 +1,6 @@
 <?php
 $this->Breadcrumbs->add('Accueil', ['controller' => 'Pages', 'action' => 'showHome']);
-echo $this->element('utility/breadcrumb');
+echo $this->element('Utility/breadcrumb');
 ?>
 
 <div class="mb-5">
