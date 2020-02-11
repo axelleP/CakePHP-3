@@ -23,46 +23,36 @@ Partage sur les réseaux sociaux
     ?>
 </div>
 
-<div class="border p-2" id="espaceCommentaire">
+<div class="border p-2" id="formComFromArt_<?= $article->id ?>">
     <h4>Commentaires</h4>
     <?= $this->element('Commentaires/form'); ?>
     </br>
 
     <div class="container">
         <?php
+        /* commentaires de l'article */
         foreach ($commentaires as $com) {
+            $nomObjetCom = $article->id . '_' . $com->id;
         ?>
+            <span id="viewCom_<?= $nomObjetCom ?>" class="mb-1"></span><!-- ancre -->
             <div class="row">
-                <div class="col-sm-1">
-                    <div class="thumbnail">
-                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                    </div>
-                </div>
-
-                <div class="col-sm-5">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong><?= $com->user->username; ?></strong> <span class="text-muted">Le <?= $this->Time->format($com->dateCreation) ?></span>
-                        </div>
-
-                        <div class="panel-body"><?= nl2br($com->commentaire); ?></div>
-                    </div>
-                </div>
-
-                <div class="col-sm-1">
-                    <?= $this->Html->link('Répondre', '#', ['id' => 'linkRepondre_' . $com->id, 'onclick' => "js:displayFormCom(" . $com->id . ");return false;"]) ?>
-                </div>
+                <?= $this->element('Commentaires/view', ['com' => $com, 'showLinkRepondre' => true, 'nomObjetCom' => $nomObjetCom]); ?>
             </div>
         <?php
+            //vue des commentaires sous un commentaire de l'article
             if (!empty($com->commentaires2)) {
                 foreach ($com->commentaires2 as $com2) {
-//                    echo 'ok<br/>';
+                    $nomObjetCom2 = $article->id . '_' . $com2->id;
+                    ?>
+                    <span id="viewCom_<?= $nomObjetCom2 ?>" class="mb-1"></span><!-- ancre -->
+                    <div class="row" style="margin-left: 4rem!important;"><?= $this->element('Commentaires/view', ['com' => $com2, 'showLinkRepondre' => false]); ?></div>
+                    <?php
                 }
             }
         ?>
-
+            <!-- formulaire commentaire -->
             <div class="row d-flex justify-content-center">
-                <div class="col-sm-8" style="display:none;" id="formCom_<?= $com->id; ?>">
+                <div class="col-sm-8" style="display:none;" id="formComFromCom_<?= $nomObjetCom; ?>">
                     <?= $this->element('Commentaires/form', ['commentaire_id' => $com->id]); ?>
                 </div>
             </div>
@@ -88,18 +78,35 @@ Partage sur les réseaux sociaux
     ?>
 </div>
 
+<?php
+//modifie l'ancre de la page
+if (!empty($hash)) {
+?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            document.location.hash = 'viewCom_' + "<?= $hash ?>";
+        });
+    </script>
+<?php
+}
+?>
+
 <script type="text/javascript">
+    //clic sur le lien Répondre : affiche ou cache le formulaire com.
     function displayFormCom(id) {
-        $formComId = "formCom_"+id;
+        $formComId = "formComFromCom_"+id;
 
         if ($("#" + $formComId).is(":hidden")) {
             $("#" + $formComId).show("slow");
+            document.location.hash = $formComId;//positionne la page sur le form.
         } else {
+            document.location.hash = "viewCom_"+id;//positionne la page sur le com.
             $("#" + $formComId).hide("slow");
         }
 
-        $("[id^=formCom_").each(function() {
-            if ($(this).attr('id') !== $formComId) {
+        //cache tous les autres form. com. des coms. de l'article
+        $("[id^=formComFromCom_").each(function() {
+            if ($(this).attr('id') !== $formComId) {//sauf celui sur lequel on a cliqué
                 $(this).hide("slow");
             }
         });

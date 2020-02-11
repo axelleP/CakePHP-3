@@ -87,17 +87,19 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->get($id);
 
-        $tabEntityForms = array();
-        $tabEntityForms[$id] = new Commentaire();//entité du form. commentaire de l'article
+        $hash = '';
+        $tabObjetsCom = array();
+        $tabObjetsCom[$id] = new Commentaire();//objet commentaire du form. com. de l'article
 
         $dataFormCom = $this->request->data;
         if (!empty($dataFormCom)) {//soumission du formulaire commentaire
-            $nomForm = (isset($dataFormCom['commentaire_id'])) ? $id . '_' . $dataFormCom['commentaire_id'] : $id;
-            $tabEntityForms[$nomForm] = $this->createCommentaire($dataFormCom);
+            $nomObjetCom = (isset($dataFormCom['commentaire_id'])) ? $id . '_' . $dataFormCom['commentaire_id'] : $id;
+            $tabObjetsCom[$nomObjetCom] = $this->createCommentaire($dataFormCom);
 
-            //nouvelle entité + remet le formulaire à vide
-            if (!$tabEntityForms[$nomForm]->errors()) {
-                $tabEntityForms[$nomForm] = new Commentaire();
+            //nouvel objet + remet le formulaire à vide
+            if (!$tabObjetsCom[$nomObjetCom]->errors()) {
+                $hash = $tabObjetsCom[$nomObjetCom]->article_id . '_' . $tabObjetsCom[$nomObjetCom]->id;
+                $tabObjetsCom[$nomObjetCom] = new Commentaire();
                 $this->request->data = null;
             }
         }
@@ -124,15 +126,15 @@ class ArticlesController extends AppController
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
         $query_commentaires = $table_commentaire->find('all', [
             'conditions' => ['Commentaires.article_id =' => $id, 'Commentaires.commentaire_id IS NULL'],
-            'contain' => ['Users', 'Commentaires2'],
+            'contain' => ['Users', 'Commentaires2', 'Commentaires2.Users'],
             'order' => 'Commentaires.dateCreation DESC'
         ]);
         $query_commentaires->toArray();//exécute la requête
         $commentaires = $this->paginate($query_commentaires);
         foreach ($commentaires as $com) {//entité du form. commentaire de chaque commentaire de l'article
-            $nomEntiteForm = $com->article_id . '_' . $com->id;
-            if (!isset($tabEntityForms[$nomEntiteForm])) {
-                $tabEntityForms[$nomEntiteForm] = new Commentaire();
+            $nomObjetCom = $com->article_id . '_' . $com->id;
+            if (!isset($tabObjetsCom[$nomObjetCom])) {
+                $tabObjetsCom[$nomObjetCom] = new Commentaire();
             }
         }
 
@@ -141,7 +143,8 @@ class ArticlesController extends AppController
             'idArticlePrecedent' => $idArticlePrecedent,
             'idArticleSuivant' => $idArticleSuivant,
             'commentaires' => $commentaires,
-            'tabEntityForms' => $tabEntityForms
+            'tabObjetsCom' => $tabObjetsCom,
+            'hash' => $hash
         ]);
 
         $this->render('view');
