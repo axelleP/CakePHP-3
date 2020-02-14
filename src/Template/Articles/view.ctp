@@ -1,4 +1,7 @@
 <?php
+use Cake\Routing\Router;
+$urlCourante = Router::url(null, true);
+
 $this->Breadcrumbs->add([
     ['title' => 'Articles', 'url' => ['controller' => 'Articles', 'action' => 'showList']],
     ['title' => $article->titre, 'url' => ['controller' => 'Articles', 'action' => 'showView', $article->id]]
@@ -12,8 +15,14 @@ echo $this->element('Utility/breadcrumb');
 
 SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
 <br/><br/>
-Partage sur les réseaux sociaux
-<br/><br/>
+
+<div class="row m-0">
+    <a class="logo_reseauSocial logo_twitter" target="_blank" title="Twitter" href="http://twitter.com/share?url=<?= $urlCourante; ?>&amp;text=<?= $article->titre; ?>"></a>
+    <a class="logo_reseauSocial logo_facebook" target="_blank" title="Facebook" href="http://www.facebook.com/sharer.php?u=<?= $urlCourante; ?>&amp;t=<?= $article->titre; ?>"></a>
+    <a class="logo_reseauSocial logo_google_plus" target="_blank" title="Google Plus" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<?= $urlCourante; ?>"></a>
+</div>
+
+<br/>
 
 <div class="buttonsArticle mb-5">
     <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Retour aux articles', '/articles/show-list') ?></button>
@@ -25,16 +34,17 @@ Partage sur les réseaux sociaux
 
 <div class="border p-2" id="formComFromArt_<?= $article->id ?>">
     <h4>Commentaires</h4>
+    <span id="ancreFormCom_<?= $article->id ?>">&nbsp;</span>
     <?= $this->element('Commentaires/form'); ?>
     </br>
 
-    <div class="container">
+    <div>
         <?php
         /* commentaires de l'article */
         foreach ($commentaires as $com) {
             $nomObjetCom = $article->id . '_' . $com->id;
         ?>
-            <span id="viewCom_<?= $nomObjetCom ?>" class="mb-1"></span><!-- ancre -->
+            <span id="ancreViewCom_<?= $nomObjetCom ?>" class="mb-1"></span>
             <div class="row">
                 <?= $this->element('Commentaires/view', ['com' => $com, 'showLinkRepondre' => true, 'nomObjetCom' => $nomObjetCom]); ?>
             </div>
@@ -44,13 +54,14 @@ Partage sur les réseaux sociaux
                 foreach ($com->commentaires2 as $com2) {
                     $nomObjetCom2 = $article->id . '_' . $com2->id;
                     ?>
-                    <span id="viewCom_<?= $nomObjetCom2 ?>" class="mb-1"></span><!-- ancre -->
+                    <span id="ancreViewCom_<?= $nomObjetCom2 ?>"></span>
                     <div class="row" style="margin-left: 4rem!important;"><?= $this->element('Commentaires/view', ['com' => $com2, 'showLinkRepondre' => false]); ?></div>
                     <?php
                 }
             }
         ?>
             <!-- formulaire commentaire -->
+            <span id="ancreFormCom_<?= $nomObjetCom ?>">&nbsp;</span>
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-8" style="display:none;" id="formComFromCom_<?= $nomObjetCom; ?>">
                     <?= $this->element('Commentaires/form', ['commentaire_id' => $com->id]); ?>
@@ -84,7 +95,7 @@ if (!empty($hash)) {
 ?>
     <script type="text/javascript">
         $(document).ready(function() {
-            document.location.hash = 'viewCom_' + "<?= $hash ?>";
+            document.location.hash = 'ancreViewCom_' + "<?= $hash ?>";
         });
     </script>
 <?php
@@ -98,9 +109,9 @@ if (!empty($hash)) {
 
         if ($("#" + $formComId).is(":hidden")) {
             $("#" + $formComId).show("slow");
-            document.location.hash = $formComId;//positionne la page sur le form.
+            document.location.hash = "ancreFormCom_"+id;//positionne la page sur le form.
         } else {
-            document.location.hash = "viewCom_"+id;//positionne la page sur le com.
+            document.location.hash = "ancreViewCom_"+id;//positionne la page sur le com.
             $("#" + $formComId).hide("slow");
         }
 

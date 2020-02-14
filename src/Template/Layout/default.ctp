@@ -68,7 +68,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
             <?= $this->Flash->render() ?>
 
-            <div class="p-4">
+            <div class="pt-4 px-5">
             <?=
             $this->fetch('content');
             echo $this->element('Utility/back_top');
@@ -76,7 +76,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
 
             <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-                <div class="container text-center">
+                <div class="text-center">
                     <small>Copyright &copy; Your Website</small>
                 </div>
             </footer>

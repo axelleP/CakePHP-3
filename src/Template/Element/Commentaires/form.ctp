@@ -3,7 +3,7 @@ $nomObjetCom = (isset($commentaire_id)) ? $article->id . '_' . $commentaire_id :
 $idForm = (isset($commentaire_id)) ? 'formComFromCom_' . $nomObjetCom : 'formComFromArt_' . $nomObjetCom;
 
 /* commentaire */
-echo $this->Form->create($tabObjetsCom[$nomObjetCom], ['url' => ['action' => 'show-view/' . $article->id, '#' => $idForm], 'templates' => 'form-template']);
+echo $this->Form->create($tabObjetsCom[$nomObjetCom], ['url' => ['action' => 'show-view/' . $article->id, '#' => "ancreFormCom_" . $nomObjetCom], 'templates' => 'form-template']);
 echo $this->Form->hidden('article_id', ['value' => $article->id]);
 if ($tabObjetsCom[$nomObjetCom]->hasErrors()) {//permet d'afficher le formulaire en erreur
     echo $this->Form->hidden('idFormError', ['value' => $idForm]);
