@@ -68,19 +68,66 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
             <?= $this->Flash->render() ?>
 
+            <div class="d-flex justify-content-center">
+                <div id="formAdmin" class="col-lg-4 border shadow p-4" style="display:none;">
+                <?php
+                    echo $this->Form->create($user, ['url' => ['action' => 'login'], 'templates' => 'form-template']);
+                    echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Login', 'required' => 0]);
+                    echo $this->Form->control('password', ['label' => false, 'placeholder' => 'Mot de passe', 'required' => 0]);
+                    echo $this->Form->button('Se connecter');
+                    echo $this->Form->end();
+                ?>
+                </div>
+            </div>
+
             <div class="pt-4 px-5">
-            <?=
-            $this->fetch('content');
-            echo $this->element('Utility/back_top');
+            <?php
+                echo $this->fetch('content');
+                echo $this->element('Utility/back_top');
             ?>
             </div>
 
             <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
                 <div class="text-center">
-                    <small>Copyright &copy; Your Website</small>
+                    <small>
+                        <a id="lienAdmin">Administration</a>
+                        <br/>Copyright &copy; CakePHP Training
+                    </small>
                 </div>
             </footer>
         </div>
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    $("#lienAdmin").click(function() {
+        if ($("#formAdmin").is(":hidden")) {
+           $("#formAdmin").fadeIn("slow");
+        } else {
+           $("#formAdmin").css("display", "none");
+        }
+    });
+
+    /* permet au bloc connexion de suivre le scroll */
+    $(function() {
+        var $formAdmin   = $("#formAdmin"),
+            $window    = $(window),//représente une fenêtre ouverte dans un navigateur
+            offset     = $formAdmin.offset(),//coordonnées actuelles du formulaire
+            topPadding = 50;//permet de positionner le cadre
+
+        //si l'utilisateur a scroll
+        $window.scroll(function() {
+            //si la position du scroll est > aux coordonnées du form.
+            if ($window.scrollTop() > offset.top) {
+                $formAdmin.stop().animate({//stoppe les animations en cours puis crée une animation
+                    marginTop: $window.scrollTop() - offset.top + topPadding//redéfinit le margin top
+                });
+            } else {
+                $formAdmin.stop().animate({
+                    marginTop: 0
+                });
+            }
+        });
+    });
+</script>

@@ -1,6 +1,6 @@
 <?php
 return [
-    'formStart' => '<form class="mb-3"{{attrs}}>',
+    'formStart' => '<form {{attrs}}>',
     'inputContainer' => '<div class="form-group" style="margin-bottom:8px;">{{content}}</div>',
     'input' => '<input type="{{type}}" name="{{name}}" class="form-control"{{attrs}}/>',
     'textarea' => '<textarea name="{{name}}" class="form-control"{{attrs}}></textarea>',

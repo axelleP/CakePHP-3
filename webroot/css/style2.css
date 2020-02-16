@@ -58,11 +58,12 @@
 
 /* Logo réseau social */
 .logo_reseauSocial {
-    height: 36px;
+    height: 35px;
     width: 36px;
     background-repeat: no-repeat;
     cursor:pointer;
-    transition:0.5s;/* durée de l'animation en secondes*/
+    transition:0.3s;/* durée de l'animation en secondes*/
+    border-radius: 1.1rem;
 }
 a.logo_reseauSocial{
     margin-right: .5rem;
@@ -78,4 +79,12 @@ a.logo_reseauSocial{
 }
 .logo_google_plus {
     background-image: url('../img/logo/logo-google-plus.png');
+}
+
+/* Formulaire de connexion */
+#formAdmin {
+    position: absolute;
+    z-index: 1;/* passe l'élément au premier plan de la page */
+    background-color: white;
+    max-width: 450px;/* utile sur une petite résolution */
 }

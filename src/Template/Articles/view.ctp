@@ -36,7 +36,7 @@ SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
     <h4>Commentaires</h4>
     <span id="ancreFormCom_<?= $article->id ?>">&nbsp;</span>
     <?= $this->element('Commentaires/form'); ?>
-    </br>
+    </br></br>
 
     <div>
         <?php
@@ -63,7 +63,7 @@ SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
             <!-- formulaire commentaire -->
             <span id="ancreFormCom_<?= $nomObjetCom ?>">&nbsp;</span>
             <div class="row d-flex justify-content-center">
-                <div class="col-sm-8" style="display:none;" id="formComFromCom_<?= $nomObjetCom; ?>">
+                <div class="col-sm-8 mb-3" style="display:none;" id="formComFromCom_<?= $nomObjetCom; ?>">
                     <?= $this->element('Commentaires/form', ['commentaire_id' => $com->id]); ?>
                 </div>
             </div>

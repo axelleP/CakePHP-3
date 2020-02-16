@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use App\Model\Entity\User;//pour le formulaire de connexion
 
 /**
  * Application Controller
@@ -45,6 +46,8 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+
+        $this->set(array('user' => new User()));//pour le formulaire de connexion
 
         /*
          * Enable the following component for recommended CakePHP security settings.
