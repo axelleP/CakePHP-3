@@ -12,18 +12,13 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
+    <title>Training CakePHP</title>
     <?= $this->Html->meta('icon') ?>
 
     <?=
@@ -69,14 +64,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?= $this->Flash->render() ?>
 
             <div class="d-flex justify-content-center">
-                <div id="formAdmin" class="col-lg-4 border shadow p-4" style="display:none;">
-                <?php
-                    echo $this->Form->create($user, ['url' => ['action' => 'login'], 'templates' => 'form-template']);
-                    echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Login', 'required' => 0]);
-                    echo $this->Form->control('password', ['label' => false, 'placeholder' => 'Mot de passe', 'required' => 0]);
-                    echo $this->Form->button('Se connecter');
-                    echo $this->Form->end();
-                ?>
+                <div id="frameConnection" class="col-lg-3 shadow p-0" style="display:none;">
+                    <div id="titleConnection" class="p-2">Connexion</div>
+                    <div class="p-4 border">
+                        <?php
+                            echo $this->Form->create($user, ['url' => ['action' => '#'], 'templates' => 'form-template', 'id' => 'formConnexion']);
+                            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Login', 'required' => 0]);
+                            echo '<div id="username_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
+                            echo $this->Form->control('password', ['label' => false, 'placeholder' => 'Mot de passe', 'required' => 0]);
+                            echo '<div id="password_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
+                            echo $this->Form->button('Se connecter', ['onclick' => 'js:submitFormConnexion();return false;']);
+                            echo $this->Form->end();
+                        ?>
+                    </div>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
                 <div class="text-center">
                     <small>
-                        <a id="lienAdmin">Administration</a>
+                        <a id="lienConnexion">Administration</a>
                         <br/>Copyright &copy; CakePHP Training
                     </small>
                 </div>
@@ -101,17 +101,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </html>
 
 <script type="text/javascript">
-    $("#lienAdmin").click(function() {
-        if ($("#formAdmin").is(":hidden")) {
-           $("#formAdmin").fadeIn("slow");
+    //affiche le bloc de connexion
+    $("#lienConnexion").click(function() {
+        if ($("#frameConnection").is(":hidden")) {
+           $("#frameConnection").fadeIn("slow");
         } else {
-           $("#formAdmin").css("display", "none");
+           $("#frameConnection").css("display", "none");
         }
     });
 
     /* permet au bloc connexion de suivre le scroll */
     $(function() {
-        var $formAdmin   = $("#formAdmin"),
+        var $formAdmin   = $("#frameConnection"),
             $window    = $(window),//représente une fenêtre ouverte dans un navigateur
             offset     = $formAdmin.offset(),//coordonnées actuelles du formulaire
             topPadding = 50;//permet de positionner le cadre
@@ -130,4 +131,36 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             }
         });
     });
+
+    function submitFormConnexion() {
+        $.ajax({
+            url: '<?= $this->Url->build(['controller' => 'users', 'action' => 'login']); ?>',
+            data: $('#formConnexion').serialize(),
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('[name="_csrfToken"]').val());
+            },
+            success: function(data) {
+                if (data.statut == 'success') {
+                    location.reload();
+                } else {
+                    $("#formConnexion .error").remove();//supprime les erreurs affichées
+
+                    var champActuel = '';
+                    $.each(data.tabErrors, function(champ) {
+                        $.each(this, function(index, error) {
+                            if (champActuel != '' && champActuel != champ) {
+                                $('.error').last().append('<br/><br/>');//saut de ligne
+                            }
+                            champActuel = champ;
+
+                            $("#" + champ + "_errors").css("display", "block");
+                            $("#" + champ + "_errors").append('<div class="error">' + error + '</div>');
+                        });
+                    });
+                }
+            }
+        });
+    }
 </script>

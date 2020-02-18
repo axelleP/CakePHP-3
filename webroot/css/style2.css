@@ -82,9 +82,15 @@ a.logo_reseauSocial{
 }
 
 /* Formulaire de connexion */
-#formAdmin {
+#frameConnection {
     position: absolute;
     z-index: 1;/* passe l'élément au premier plan de la page */
     background-color: white;
     max-width: 450px;/* utile sur une petite résolution */
+    text-align: center;
+}
+#titleConnection {
+    background-color: #343a40;
+    color: white;
+    border : 1px solid #343a40;
 }
