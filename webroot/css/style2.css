@@ -84,7 +84,7 @@ a.logo_reseauSocial{
 /* Formulaire de connexion */
 #frameConnection {
     position: absolute;
-    z-index: 1;/* passe l'élément au premier plan de la page */
+    z-index: 100;/* passe l'élément au premier plan de la page */
     background-color: white;
     max-width: 450px;/* utile sur une petite résolution */
     text-align: center;
@@ -92,5 +92,23 @@ a.logo_reseauSocial{
 #titleConnection {
     background-color: #343a40;
     color: white;
-    border : 1px solid #343a40;
+    border : 1px solid black;
+}
+
+.close2 {
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 0.8;
+}
+button.close2:hover, button.close2:focus  {
+    background-color: transparent;
+    border: none;
+    outline:none;
+}
+button.close2:hover  {
+    color: #DCDCDC;
 }

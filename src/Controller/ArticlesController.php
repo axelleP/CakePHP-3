@@ -91,7 +91,7 @@ class ArticlesController extends AppController
         $tabObjetsCom = array();
         $tabObjetsCom[$id] = new Commentaire();//objet commentaire du form. com. de l'article
 
-        $dataFormCom = $this->request->data;
+        $dataFormCom = $this->request->getData();
         if (!empty($dataFormCom)) {//soumission du formulaire commentaire
             $nomObjetCom = (isset($dataFormCom['commentaire_id'])) ? $id . '_' . $dataFormCom['commentaire_id'] : $id;
             $tabObjetsCom[$nomObjetCom] = $this->createCommentaire($dataFormCom);

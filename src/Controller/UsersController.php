@@ -16,7 +16,7 @@ class UsersController extends AppController
         $this->autoRender = false;
         $this->response->type('json');
 
-        $dataForm = $this->request->data;
+        $dataForm = $this->request->getData();
 
         $table_user = TableRegistry::getTableLocator()->get('Users');
         $user = $table_user->newEntity($dataForm);
@@ -30,9 +30,13 @@ class UsersController extends AppController
             ]);
             $user = $query_user->first();
 
-            //...
-
-            $statut = 'success';
+            if (is_null($user)) {
+                $statut = 'error';
+                $tabErrors['all'][] = "Identifiant et/ou mot de passe incorrect.";
+            } else {
+                $statut = 'success';
+                $this->Auth->setUser($user);
+            }
         } else {
             $statut = 'error';
             foreach ($user->getErrors() as $champ => $errors) {
@@ -44,6 +48,10 @@ class UsersController extends AppController
 
         $json = json_encode(array('statut' => $statut, 'tabErrors' => $tabErrors));
         $this->response->body($json);
+    }
+
+    public function logout() {
+        $this->redirect($this->Auth->logout());
     }
 
 }

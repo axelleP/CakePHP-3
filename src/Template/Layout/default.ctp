@@ -18,7 +18,7 @@
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training CakePHP</title>
+    <title>CakePHP Training</title>
     <?= $this->Html->meta('icon') ?>
 
     <?=
@@ -46,10 +46,10 @@
         <div class="mx-5 p-0 overflow-auto border shadow">
             <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <div class="row">
-                    <ul class="navbar-nav col-lg-7">
-                      <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/show-home', ['class' => "nav-link"]) ?></li>
-                      <li class="nav-item"><?= $this->Html->link('Articles', '/articles/show-list', ['class' => "nav-link"]) ?></li>
-                      <li class="nav-item"><?= $this->Html->link('Articles populaires', '/articles/show-list/' . serialize(array('isPopulaire' => true)), ['class' => "nav-link"]) ?></li>
+                    <ul class="navbar-nav col-lg-7 align-self-center">
+                        <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/show-home', ['class' => "nav-link"]) ?></li>
+                        <li class="nav-item"><?= $this->Html->link('Articles', '/articles/show-list', ['class' => "nav-link"]) ?></li>
+                        <li class="nav-item"><?= $this->Html->link('Articles populaires', '/articles/show-list/' . serialize(array('isPopulaire' => true)), ['class' => "nav-link"]) ?></li>
                     </ul>
 
                     <?php
@@ -65,10 +65,14 @@
 
             <div class="d-flex justify-content-center">
                 <div id="frameConnection" class="col-lg-3 shadow p-0" style="display:none;">
-                    <div id="titleConnection" class="p-2">Connexion</div>
+                    <div id="titleConnection" class="p-2">
+                        Connexion
+                        <button type="button" class="close2 p-0" aria-label="Close" onclick="js:$('#frameConnection').css('display', 'none');"><span aria-hidden="true">&times;</span></button>
+                    </div>
                     <div class="p-4 border">
                         <?php
                             echo $this->Form->create($user, ['url' => ['action' => '#'], 'templates' => 'form-template', 'id' => 'formConnexion']);
+                            echo '<div id="all_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
                             echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Login', 'required' => 0]);
                             echo '<div id="username_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
                             echo $this->Form->control('password', ['label' => false, 'placeholder' => 'Mot de passe', 'required' => 0]);
@@ -143,9 +147,11 @@
             },
             success: function(data) {
                 if (data.statut == 'success') {
-                    location.reload();
+                    window.location.replace('<?= $this->Url->build(['controller' => 'admin', 'action' => 'show-dashboard']); ?>');
                 } else {
-                    $("#formConnexion .error").remove();//supprime les erreurs affichées
+                    //supprime les erreurs présentes
+                    $("[id$=_errors]").css("display", "none");
+                    $("#formConnexion .error").remove();
 
                     var champActuel = '';
                     $.each(data.tabErrors, function(champ) {
@@ -155,8 +161,13 @@
                             }
                             champActuel = champ;
 
-                            $("#" + champ + "_errors").css("display", "block");
+                            //affiche l'erreur
+                            $("#" + champ + "_errors").fadeIn(800);
                             $("#" + champ + "_errors").append('<div class="error">' + error + '</div>');
+
+                            if (champ == 'all') {
+                                $('.error').last().append('<br/><br/>');//saut de ligne
+                            }
                         });
                     });
                 }
