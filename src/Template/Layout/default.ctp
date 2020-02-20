@@ -147,7 +147,7 @@
             },
             success: function(data) {
                 if (data.statut == 'success') {
-                    window.location.replace('<?= $this->Url->build(['controller' => 'admin', 'action' => 'show-dashboard']); ?>');
+                    window.location.replace('<?= $this->Url->build(['controller' => 'admin', 'action' => 'show-dashboard-articles']); ?>');
                 } else {
                     //supprime les erreurs présentes
                     $("[id$=_errors]").css("display", "none");

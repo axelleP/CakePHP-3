@@ -44,24 +44,28 @@
 <body>
     <div class="container">
         <div class="mx-5 p-0 overflow-auto border shadow">
-            <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <div class="row">
-                    <ul class="navbar-nav col-lg-7 align-self-center">
-                        <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => "nav-link"]) ?></li>
-                    </ul>
+            <div class="row">
+                <div class="col-3">
+                    <nav class="nav flex-column navbar-dark bg-dark h-100">
+                        <ul class="navbar-nav text-center m-0">
+                            <li class="nav-item"><?= $this->Html->link('Articles', '/admin/show-dashboard-articles', ['class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/admin/show-dashboard-rubriques', ['class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/admin/show-dashboard-commentaires', ['class' => "nav-link"]) ?></li>
+                            <br/>
+                            <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => "nav-link"]) ?></li>
+                        </ul>
+                    </nav>
                 </div>
-            </nav>
 
-            <?= $this->Flash->render() ?>
-
-            <div class="pt-4 px-5">
-            <?php
-                echo $this->fetch('content');
-                echo $this->element('Utility/back_top');
-            ?>
+                <div class="col-9 pt-4">
+                <?php
+                    echo $this->fetch('content');
+                    echo $this->element('Utility/back_top');
+                ?>
+                </div>
             </div>
 
-            <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+            <footer id="sticky-footer" class="py-4 bg-dark text-white-50" style="border-top: solid 0.5px black;">
                 <div class="text-center">
                     <small>Copyright &copy; CakePHP Training</small>
                 </div>

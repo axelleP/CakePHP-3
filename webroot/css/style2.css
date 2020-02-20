@@ -58,27 +58,14 @@
 
 /* Logo réseau social */
 .logo_reseauSocial {
-    height: 35px;
-    width: 36px;
     background-repeat: no-repeat;
     cursor:pointer;
     transition:0.3s;/* durée de l'animation en secondes*/
     border-radius: 1.1rem;
-}
-a.logo_reseauSocial{
     margin-right: .5rem;
 }
 .logo_reseauSocial:hover{
     transform : scale(1.2);/* zoom de l'image. La taille normale est 1 */
-}
-.logo_twitter {
-    background-image: url('../img/logo/logo-twitter.jpg');
-}
-.logo_facebook {
-    background-image: url('../img/logo/logo-facebook.png');
-}
-.logo_google_plus {
-    background-image: url('../img/logo/logo-google-plus.png');
 }
 
 /* Formulaire de connexion */

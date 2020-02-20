@@ -8,6 +8,7 @@ class CommentairesTable extends Table
 {
     public function initialize(array $config)
     {
+        $this->belongsTo('Articles');
         $this->belongsTo('Users');
         $this->hasMany('Commentaires2', [
             'className' => 'Commentaires',//table Commentaires

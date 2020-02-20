@@ -17,9 +17,15 @@ SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
 <br/><br/>
 
 <div class="row m-0">
-    <a class="logo_reseauSocial logo_twitter" target="_blank" title="Twitter" href="http://twitter.com/share?url=<?= $urlCourante; ?>&amp;text=<?= $article->titre; ?>"></a>
-    <a class="logo_reseauSocial logo_facebook" target="_blank" title="Facebook" href="http://www.facebook.com/sharer.php?u=<?= $urlCourante; ?>&amp;t=<?= $article->titre; ?>"></a>
-    <a class="logo_reseauSocial logo_google_plus" target="_blank" title="Google Plus" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<?= $urlCourante; ?>"></a>
+    <a target="_blank" title="Twitter" href="http://twitter.com/share?url=<?= $urlCourante; ?>&amp;text=<?= $article->titre; ?>">
+        <?= $this->Html->image('logo/logo-twitter.jpg', array('alt' => 'CakePHP', 'class' => 'logo_reseauSocial')); ?>
+    </a>
+    <a target="_blank" title="Facebook" href="http://www.facebook.com/sharer.php?u=<?= $urlCourante; ?>&amp;t=<?= $article->titre; ?>">
+        <?= $this->Html->image('logo/logo-facebook.png', array('alt' => 'CakePHP', 'class' => 'logo_reseauSocial')); ?>
+    </a>
+    <a target="_blank" title="Google Plus" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<?= $urlCourante; ?>">
+        <?= $this->Html->image('logo/logo-google-plus.png', array('alt' => 'CakePHP', 'class' => 'logo_reseauSocial')); ?>
+    </a>
 </div>
 
 <br/>
