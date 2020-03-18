@@ -16,12 +16,16 @@ foreach ($rubriques as $rubrique) {
         $rubrique->descriptif,
         array(
             //modifier
-            $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn'])
+            $this->Html->link(
+                $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn']),
+                ['controller' => 'adminRubriques', 'action' => "showForm/$rubrique->id"],
+                ['escape' => false]
+            )
             . '<br/>'
             //supprimer
             . $this->Html->link(
                 $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn']),
-                ['controller' => 'adminRubriques', 'action' => 'delete', '?' => ['id' => $rubrique->id]],
+                ['controller' => 'adminRubriques', 'action' => "delete/$rubrique->id"],
                 ['escape' => false, 'confirm' => 'Confirmez-vous la suppression?']
             ),
             ['class' => 'text-center']//centre la colonne des actions

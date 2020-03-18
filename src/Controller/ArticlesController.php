@@ -1,16 +1,10 @@
 <?php
 namespace App\Controller;
 
-use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\NotFoundException;
-use Cake\View\Exception\MissingTemplateException;
-
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
 
 use App\Model\Entity\Commentaire;
-use App\Model\Entity\Rubrique;
 
 class ArticlesController extends AppController
 {

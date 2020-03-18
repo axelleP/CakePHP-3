@@ -1,11 +1,6 @@
 <?php
 namespace App\Controller;
 
-use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\NotFoundException;
-use Cake\View\Exception\MissingTemplateException;
-
 use Cake\ORM\TableRegistry;
 
 class AdminRubriquesController extends AppController
@@ -28,10 +23,30 @@ class AdminRubriquesController extends AppController
         $this->render('/Rubriques/dashboard');
     }
 
-    public function delete()
-    {
-        $id = $_GET['id'];
+    public function showForm($id = '') {
+        $dataForm = $this->request->getData();
 
+        if (empty($id)) {
+            $rubrique = new Rubrique();
+        } else {
+            $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
+            $rubrique = $table_rubrique->get($id);
+        }
+
+        $this->set(['rubrique' => $rubrique]);
+
+        //soumission formulaire
+        if (!empty($dataForm)) {
+            var_dump($dataForm);exit;
+        }
+
+//        var_dump($rubrique);exit;
+
+        $this->render('/Rubriques/form');
+    }
+
+    public function delete($id)
+    {
         $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
         $rubrique = $table_rubrique->get($id, array('contain' => 'articles'));
 

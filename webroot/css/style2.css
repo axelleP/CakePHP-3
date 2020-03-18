@@ -101,7 +101,7 @@ button.close2:hover  {
 }
 
 /* Menu partie administration */
-#menuCourant {
-    color: white;
+.nav-link.menuCourant {
+    color: white !important;
     background-color: black;
 }

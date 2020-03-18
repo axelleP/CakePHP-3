@@ -23,9 +23,9 @@
                 <div class="col-3">
                     <nav class="nav flex-column navbar-dark bg-dark h-100">
                         <ul class="navbar-nav text-center m-0 pt-3">
-                            <li class="nav-item"><?= $this->Html->link('Articles', '/adminArticles/show-dashboard', ['class' => "nav-link"]) ?></li>
-                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/adminRubriques/show-dashboard', ['class' => "nav-link"]) ?></li>
-                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/adminCommentaires/show-dashboard', ['class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Articles', '/adminArticles/show-dashboard', ['id' => 'menuArticle', 'class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/adminRubriques/show-dashboard', ['id' => 'menuRubrique', 'class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/adminCommentaires/show-dashboard', ['id' => 'menuCommentaire', 'class' => "nav-link"]) ?></li>
                             <br/>
                             <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => "nav-link"]) ?></li>
                         </ul>
@@ -54,7 +54,7 @@
 
             $.each($('.nav-link'), function(index) {
                 if (urlCourante == $(this).attr("href")) {
-                    $(this).attr('id', 'menuCourant');
+                    $(this).attr('class', 'nav-link menuCourant');
                 }
             });
         });

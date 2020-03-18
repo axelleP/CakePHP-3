@@ -1,11 +1,6 @@
 <?php
 namespace App\Controller;
 
-use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\NotFoundException;
-use Cake\View\Exception\MissingTemplateException;
-
 use Cake\ORM\TableRegistry;
 
 class UsersController extends AppController
