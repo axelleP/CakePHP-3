@@ -15,42 +15,17 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CakePHP Training</title>
-    <?= $this->Html->meta('icon') ?>
-
-    <?=
-        $this->Html->css([
-            'base.css'
-            , 'style.css'
-            , 'style2.css'
-            , 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'
-        ]);
-    ?>
-
-    <?=
-        $this->Html->script([
-            'https://code.jquery.com/jquery-3.4.1.min.js'
-            , 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'
-        ]);
-    ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
+<?= $this->element('General/head'); ?>
 <body>
     <div class="container">
         <div class="mx-5 p-0 overflow-auto border shadow">
             <div class="row">
                 <div class="col-3">
                     <nav class="nav flex-column navbar-dark bg-dark h-100">
-                        <ul class="navbar-nav text-center m-0">
-                            <li class="nav-item"><?= $this->Html->link('Articles', '/admin/show-dashboard-articles', ['class' => "nav-link"]) ?></li>
-                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/admin/show-dashboard-rubriques', ['class' => "nav-link"]) ?></li>
-                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/admin/show-dashboard-commentaires', ['class' => "nav-link"]) ?></li>
+                        <ul class="navbar-nav text-center m-0 pt-3">
+                            <li class="nav-item"><?= $this->Html->link('Articles', '/adminArticles/show-dashboard', ['class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/adminRubriques/show-dashboard', ['class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/adminCommentaires/show-dashboard', ['class' => "nav-link"]) ?></li>
                             <br/>
                             <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => "nav-link"]) ?></li>
                         </ul>
@@ -72,5 +47,17 @@
             </footer>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            var urlCourante = window.location.pathname;
+
+            $.each($('.nav-link'), function(index) {
+                if (urlCourante == $(this).attr("href")) {
+                    $(this).attr('id', 'menuCourant');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

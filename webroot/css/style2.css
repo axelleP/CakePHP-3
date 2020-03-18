@@ -99,3 +99,9 @@ button.close2:hover, button.close2:focus  {
 button.close2:hover  {
     color: #DCDCDC;
 }
+
+/* Menu partie administration */
+#menuCourant {
+    color: white;
+    background-color: black;
+}
