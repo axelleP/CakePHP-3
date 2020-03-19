@@ -12,9 +12,9 @@ $styleDescriptif = '';
 if ($this->Form->isFieldError('descriptif')) {
     $styleDescriptif .= 'border-color:red;';
 }
-echo $this->Form->control('descriptif', ['type' => 'textarea', 'id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 0, 'style' => $styleDescriptif]);
+echo $this->Form->control('descriptif', ['id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 0, 'style' => $styleDescriptif]);
 //boutons
-echo '<button type="submit" class="btn btn-secondary">Annuler</button>';
+echo '<button type="submit" name="btnCancel" class="btn btn-secondary">Annuler</button>';
 echo '&nbsp;';
 if ($rubrique->isNew()) {
     echo $this->Form->button('Ajouter');

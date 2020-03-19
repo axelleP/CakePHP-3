@@ -24,7 +24,9 @@ class AdminRubriquesController extends AppController
     }
 
     public function showForm($id = '') {
-        $dataForm = $this->request->getData();
+        if (isset($_POST['btnCancel'])) {
+            return $this->redirect(['controller' => 'AdminRubriques', 'action' => 'showDashboard']);
+        }
 
         if (empty($id)) {
             $rubrique = new Rubrique();
@@ -33,14 +35,19 @@ class AdminRubriquesController extends AppController
             $rubrique = $table_rubrique->get($id);
         }
 
-        $this->set(['rubrique' => $rubrique]);
-
+        $dataForm = $this->request->getData();
         //soumission formulaire
         if (!empty($dataForm)) {
-            var_dump($dataForm);exit;
+            //validation et assignation des données
+            $table_rubrique->patchEntity($rubrique, $dataForm);
+
+            if (!$rubrique->errors()) {
+                $table_rubrique->save($rubrique);
+                return $this->redirect(['controller' => 'AdminRubriques', 'action' => 'showDashboard']);
+            }
         }
 
-//        var_dump($rubrique);exit;
+        $this->set(['rubrique' => $rubrique]);
 
         $this->render('/Rubriques/form');
     }
