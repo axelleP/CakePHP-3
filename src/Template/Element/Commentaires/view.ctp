@@ -7,7 +7,7 @@
 <div class="col-sm-5">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <strong><?= $com->user->username; ?></strong> <span class="text-muted" style="word-wrap: break-word;">Le <?= $this->Time->format($com->dateCreation) ?></span>
+            <strong><?= $com->user->username; ?></strong> <span class="text-muted" style="word-wrap: break-word;">Le <?= $com->dateCreation ?></span>
         </div>
 
         <div class="panel-body" style="word-wrap: break-word;"><?= nl2br($com->commentaire); ?></div>

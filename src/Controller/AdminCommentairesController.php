@@ -23,24 +23,27 @@ class AdminCommentairesController extends AppController
         $this->render('/Commentaires/dashboard');
     }
 
-    public function delete()
+    public function showView($id)
     {
-        $id = $_GET['id'];
+        $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
+        $commentaire = $table_commentaire->get($id, ['contain' => ['Articles', 'Users']]);
 
-//        $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
-//        $rubrique = $table_rubrique->get($id, array('contain' => 'articles'));
-//
-//        if (!empty($rubrique->articles)) {
-//            $this->Flash->error('Suppression impossible : ' . count($rubrique->articles) . ' article(s) rattaché(s) à cette rubrique.', ['key' => 'error']);
-//        } else {
-//            $result = $table_rubrique->delete($rubrique);
-//
-//            if ($result) {
-//                $this->Flash->success("La rubrique $rubrique->nom a bien été supprimée.", ['key' => 'success']);
-//            } else {
-//                $this->Flash->error("Une erreur s'est produite lors de la suppression.", ['key' => 'error']);
-//            }
-//        }
+        $this->set(array('commentaire' => $commentaire));
+
+        $this->render('/Commentaires/view');
+    }
+
+    public function delete($id)
+    {
+        $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
+        $commentaire = $table_commentaire->get($id);
+        $result = $table_commentaire->delete($commentaire);
+
+        if ($result) {
+            $this->Flash->success("Le commentaire a bien été supprimé.", ['key' => 'success']);
+        } else {
+            $this->Flash->error("Une erreur s'est produite lors de la suppression.", ['key' => 'error']);
+        }
 
         return $this->redirect(['controller' => 'AdminCommentaires', 'action' => 'showDashboard']);
     }

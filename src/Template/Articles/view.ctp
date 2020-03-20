@@ -31,10 +31,10 @@ SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
 <br/>
 
 <div class="buttonsArticle mb-5">
-    <button type="button" class="btn btn-dark mb-1"><?= $this->Html->link('Retour aux articles', '/articles/show-list') ?></button>
     <?php
-    if (!empty($idArticlePrecedent)) { ?> <button type="button" class="btn btn-dark mb-1"> <?= $this->Html->link('Article précédent', '/articles/show-view/' . $idArticlePrecedent) ?> </button> <?php }
-    if (!empty($idArticleSuivant)) { ?> <button type="button" class="btn btn-dark mb-1"> <?= $this->Html->link('Article suivant', '/articles/show-view/' . $idArticleSuivant) ?> </button> <?php }
+        echo $this->Html->link('Retour aux articles', '/articles/show-list', ['class' => 'btn btn-dark mb-1 mr-1']);
+        if (!empty($idArticlePrecedent)) { echo $this->Html->link('Article précédent', '/articles/show-view/' . $idArticlePrecedent, ['class' => 'btn btn-dark mb-1 mr-1']); }
+        if (!empty($idArticleSuivant)) { echo $this->Html->link('Article suivant', '/articles/show-view/' . $idArticleSuivant, ['class' => 'btn btn-dark mb-1']); }
     ?>
 </div>
 

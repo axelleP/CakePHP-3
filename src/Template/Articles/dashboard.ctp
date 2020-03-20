@@ -8,7 +8,7 @@ echo $this->Html->tableHeaders(
 foreach ($articles as $article) {
     echo $this->Html->tableCells([[
         $article->rubrique->nom,
-        array($this->Time->format($article->dateCreation), ['class' => 'text-center']),
+        array($article->dateCreation, ['class' => 'text-center']),
         $article->titre,
         $article->descriptif,
         array(
