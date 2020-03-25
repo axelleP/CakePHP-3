@@ -68,6 +68,11 @@
     transform : scale(1.2);/* zoom de l'image. La taille normale est 1 */
 }
 
+/* Formulaire simple */
+form .error input,form .error textarea {
+    border-color:red;
+}
+
 /* Formulaire de connexion */
 #frameConnection {
     position: absolute;

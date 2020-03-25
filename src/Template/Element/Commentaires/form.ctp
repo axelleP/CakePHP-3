@@ -14,30 +14,14 @@ if (isset($commentaire_id)) {
 ?>
 <div class="row m-0">
     <div class="col-lg-6 p-0">
-        <?php
-        $styleUsername = 'margin-bottom:0;';
-        if ($this->Form->isFieldError('username')) {
-            $styleUsername .= 'border-color:red;';
-        }
-        echo $this->Form->control('username', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0, 'style' => $styleUsername]);
-        ?>
+        <?= $this->Form->control('username', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0]); ?>
     </div>
     <div class="col-lg-6">
-        <?php
-        $styleEmail = 'margin-bottom:0;';
-        if ($this->Form->isFieldError('email')) {
-            $styleEmail .= 'border-color:red;';
-        }
-        echo $this->Form->control('email', ['type' => 'email', 'id' => false, 'label' => false, 'placeholder' => 'Email', 'required' => 0, 'style' => $styleEmail]);
-        ?>
+        <?= $this->Form->control('email', ['type' => 'email', 'id' => false, 'label' => false, 'placeholder' => 'Email', 'required' => 0]); ?>
     </div>
 </div>
 <?php
-$styleCom = 'margin-bottom:0;';
-if ($this->Form->isFieldError('commentaire')) {
-    $styleCom .= 'border-color:red;';
-}
-echo $this->Form->control('commentaire', ['type' => 'textarea', 'id' => false, 'label' => false, 'placeholder' => 'Commentaire', 'required' => 0, 'style' => $styleCom]);
+echo $this->Form->control('commentaire', ['type' => 'textarea', 'id' => false, 'label' => false, 'placeholder' => 'Commentaire', 'required' => 0]);
 if (isset($commentaire_id)) {
     echo $this->Form->button('Répondre');
 } else {

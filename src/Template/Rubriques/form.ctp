@@ -2,17 +2,9 @@
 <?php
 echo $this->Form->create($rubrique, ['url' => ['action' => "show-form"], 'templates' => 'form-template']);
 //nom
-$styleNom = '';
-if ($this->Form->isFieldError('nom')) {
-    $styleNom .= 'border-color:red;';
-}
-echo $this->Form->control('nom', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0, 'style' => $styleNom]);
+echo $this->Form->control('nom', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0]);
 //descriptif
-$styleDescriptif = '';
-if ($this->Form->isFieldError('descriptif')) {
-    $styleDescriptif .= 'border-color:red;';
-}
-echo $this->Form->control('descriptif', ['id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 0, 'style' => $styleDescriptif]);
+echo $this->Form->control('descriptif', ['id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 0]);
 //boutons
 echo '<button type="submit" name="btnCancel" class="btn btn-secondary">Annuler</button>';
 echo '&nbsp;';
