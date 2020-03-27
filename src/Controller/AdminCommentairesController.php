@@ -18,9 +18,9 @@ class AdminCommentairesController extends AppController
         $query_commentaire = $table_commentaire->find('all', ['contain' => ['Articles', 'Users'], 'order' => 'Commentaires.id DESC']);
         $commentaires = $query_commentaire->toArray();//exécute la requête
 
-        $this->set(array('commentaires' => $commentaires));
+        $this->set(['commentaires' => $commentaires]);
 
-        $this->render('/Commentaires/dashboard');
+        $this->render('/Commentaires/admin/dashboard');
     }
 
     public function showView($id)
@@ -28,9 +28,9 @@ class AdminCommentairesController extends AppController
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
         $commentaire = $table_commentaire->get($id, ['contain' => ['Articles', 'Users']]);
 
-        $this->set(array('commentaire' => $commentaire));
+        $this->set(['commentaire' => $commentaire]);
 
-        $this->render('/Commentaires/view');
+        $this->render('/Commentaires/admin/view');
     }
 
     public function delete($id)

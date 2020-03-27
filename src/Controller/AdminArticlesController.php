@@ -20,9 +20,19 @@ class AdminArticlesController extends AppController
         $query_article = $table_article->find('all', ['contain' => ['Rubriques'], 'order' => 'Articles.id DESC']);
         $articles = $query_article->toArray();//exécute la requête
 
-        $this->set(array('articles' => $articles));
+        $this->set(['articles' => $articles]);
 
-        $this->render('/Articles/dashboard');
+        $this->render('/Articles/admin/dashboard');
+    }
+
+    public function showView($id)
+    {
+        $table_article = TableRegistry::getTableLocator()->get('Articles');
+        $article = $table_article->get($id, ['contain' => ['Rubriques']]);
+
+        $this->set(['article' => $article]);
+
+        $this->render('/Articles/admin/view');
     }
 
     public function showForm($id = '') {
@@ -37,8 +47,18 @@ class AdminArticlesController extends AppController
             $article = $table_article->get($id);
         }
 
-        $dataForm = $this->request->getData();
+        //récupération de la liste des rubriques
+        $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
+        $query_rubrique = $table_rubrique->find('all', ['order' => 'Rubriques.id DESC']);
+        $rubriques = $query_rubrique->toArray();//exécute la requête
+
+        $tabRubriques = array();
+        foreach ($rubriques as $rubrique) {
+            $tabRubriques[$rubrique->id] = $rubrique->nom;
+        }
+
         //soumission formulaire
+        $dataForm = $this->request->getData();
         if (!empty($dataForm)) {
             //validation et assignation des données
             $table_article->patchEntity($article, $dataForm);
@@ -49,9 +69,9 @@ class AdminArticlesController extends AppController
             }
         }
 
-        $this->set(['article' => $article]);
+        $this->set(['article' => $article, 'tabRubriques' => $tabRubriques]);
 
-        $this->render('/Articles/form');
+        $this->render('/Articles/admin/form');
     }
 
     public function delete($id)

@@ -6,7 +6,7 @@ echo $this->Flash->render('error');
 <table class="table table-bordered mt-2">
 <?php
 echo $this->Html->tableHeaders(
-    ['Rubrique', 'Date création', 'Titre', 'Descriptif', ''],
+    ['Rubrique', 'Date création', 'Titre', 'Descriptif', 'Contenu', ''],
     ['class' => 'thead-dark'],
     ['class' => 'text-center']
 );
@@ -16,9 +16,20 @@ foreach ($articles as $article) {
         array($article->dateCreation, ['class' => 'text-center']),
         $article->titre,
         $article->descriptif,
+        $this->Text->truncate(
+            nl2br($article->contenu),
+            100,//longueur maximal
+            ['ellipsis' => ' ...',//texte de fin si dépassement
+            'exact' => true,//ne coupe pas un mot
+            'html' => true]//ne coupe pas une balise
+        ),
         array(
             //visualiser
-            $this->Html->image('btn-see-20x20.svg',['alt' => 'Bouton visualiser', 'title' => 'Regarder', 'class' => 'commonBtn'])
+            $this->Html->link(
+                $this->Html->image('btn-see-20x20.svg', ['alt' => 'Bouton visualiser', 'title' => 'Regarder', 'class' => 'commonBtn']),
+                ['controller' => 'adminArticles', 'action' => "showView/$article->id"],
+                ['escape' => false]
+            )
             . '<br/>'
             //modifier
             . $this->Html->link(

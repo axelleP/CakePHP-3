@@ -23,15 +23,14 @@ class CommentairesTable extends Table
             'username' => ['message' => 'Veuillez renseigner votre nom.'],
             'email' => ['message' => 'Veuillez renseigner votre email.']
         ], 'Champ obligatoire.');//message d'erreur par défaut
-        $validator->email('email', true, 'Email incorrect.');
-        $validator->add('username', 'size', array(
-            'rule' => array('maxLength', 100),
+        $validator->add('username', 'size', [
+            'rule' => ['maxLength', 100],
             'message' => 'Votre nom ne doit pas dépasser 100 caractères.'
-        ));
-        $validator->add('email', 'size', array(
-            'rule' => array('maxLength', 100),
-            'message' => 'Votre email ne doit pas dépasser 100 caractères.'
-        ));
+        ]);
+        $validator->add('email', [
+            'size' => ['rule' => ['maxLength', 100], 'message' => 'Votre email ne doit pas dépasser 100 caractères.']
+            , 'validFormat' => ['rule' => 'email', 'message' => 'Email incorrect.']
+        ]);
 
         return $validator;
     }

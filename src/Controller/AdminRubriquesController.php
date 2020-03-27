@@ -18,9 +18,9 @@ class AdminRubriquesController extends AppController
         $query_rubrique = $table_rubrique->find('all', ['order' => 'Rubriques.id DESC']);
         $rubriques = $query_rubrique->toArray();//exécute la requête
 
-        $this->set(array('rubriques' => $rubriques));
+        $this->set(['rubriques' => $rubriques]);
 
-        $this->render('/Rubriques/dashboard');
+        $this->render('/Rubriques/admin/dashboard');
     }
 
     public function showForm($id = '') {
@@ -49,7 +49,7 @@ class AdminRubriquesController extends AppController
 
         $this->set(['rubrique' => $rubrique]);
 
-        $this->render('/Rubriques/form');
+        $this->render('/Rubriques/admin/form');
     }
 
     public function delete($id)

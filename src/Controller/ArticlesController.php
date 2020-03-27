@@ -67,12 +67,12 @@ class ArticlesController extends AppController
             $listeRubriques[$rubrique->id] = $rubrique->nom;
         }
 
-        $this->set(array(
+        $this->set([
             'articles' => $articles,
             'listeRubriques' => $listeRubriques,
             'rubrique_id' => $rubrique_id,
             'tabConditions' => $tabConditions
-        ));
+        ]);
 
         $this->render('/Articles/list');
     }
