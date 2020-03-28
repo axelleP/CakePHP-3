@@ -15,7 +15,7 @@
 ?>
 <!DOCTYPE html>
 <html>
-<?= $this->element('General/head'); ?>
+<?= $this->element('General/head', ['layout' => 'admin']); ?>
 <body>
     <div class="container">
         <div class="mx-5 p-0 overflow-auto border shadow">
@@ -23,11 +23,12 @@
                 <div class="col-3">
                     <nav class="nav flex-column navbar-dark bg-dark h-100">
                         <ul class="navbar-nav text-center m-0 pt-3">
-                            <li class="nav-item"><?= $this->Html->link('Articles', '/admin-articles/show-dashboard', ['id' => 'menuArticle', 'class' => "nav-link"]) ?></li>
-                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/admin-rubriques/show-dashboard', ['id' => 'menuRubrique', 'class' => "nav-link"]) ?></li>
-                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/admin-commentaires/show-dashboard', ['id' => 'menuCommentaire', 'class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Articles', '/admin-articles/show-dashboard', ['id' => 'menuArticle', 'class' => 'nav-link']) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Rubriques', '/admin-rubriques/show-dashboard', ['id' => 'menuRubrique', 'class' => 'nav-link']) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Commentaires', '/admin-commentaires/show-dashboard', ['id' => 'menuCommentaire', 'class' => 'nav-link']) ?></li>
                             <br/>
-                            <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => "nav-link"]) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Retour au site', '/pages/show-home', ['class' => 'nav-link', 'target' => '_blank']) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => 'nav-link']) ?></li>
                         </ul>
                     </nav>
                 </div>

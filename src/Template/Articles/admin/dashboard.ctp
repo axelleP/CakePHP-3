@@ -17,7 +17,7 @@ foreach ($articles as $article) {
         $article->titre,
         $article->descriptif,
         $this->Text->truncate(
-            nl2br($article->contenu),
+            $article->contenu,
             100,//longueur maximal
             ['ellipsis' => ' ...',//texte de fin si dépassement
             'exact' => true,//ne coupe pas un mot

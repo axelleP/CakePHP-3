@@ -15,7 +15,7 @@
 ?>
 <!DOCTYPE html>
 <html>
-<?= $this->element('General/head'); ?>
+<?= $this->element('General/head', ['layout' => 'default']); ?>
 <body>
     <div class="container">
         <div class="mx-5 p-0 overflow-auto border shadow">

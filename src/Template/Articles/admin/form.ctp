@@ -10,7 +10,7 @@ echo $this->Form->control('titre', ['id' => false, 'label' => false, 'placeholde
 //descriptif
 echo $this->Form->control('descriptif', ['id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 0]);
 //contenu
-echo $this->Form->control('contenu', ['id' => false, 'label' => false, 'placeholder' => 'Contenu', 'required' => 0]);
+echo $this->Form->control('contenu', ['label' => false, 'placeholder' => 'Contenu', 'required' => 0]);
 //boutons
 echo '<button type="submit" name="btnCancel" class="btn btn-secondary">Annuler</button>';
 echo '&nbsp;';
@@ -24,7 +24,7 @@ echo $this->Form->end();
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        //options du calendrier
+        //calendrier
         $('#dateCreation').datetimepicker({
             format: 'DD/MM/YYYY HH:mm',
             locale: 'fr',
@@ -40,6 +40,14 @@ echo $this->Form->end();
                 close: 'fa fa-times'//bouton fermer
             }
         });
+
+        //éditeur de texte
+        CKEDITOR.replace('contenu',{
+            customConfig: '/ckeditor_settings/config.js'
+        });
+        CKEDITOR.editorConfig = function( config ) {
+            config.removeButtons = 'Cut,Copy,Paste,Subscript,Superscript,About';
+        };
 
         $('#menuArticle').attr('class', 'nav-link menuCourant');
     });
