@@ -1,12 +1,27 @@
 <?php
+//rque : quand on affiche un flash message, il n'est plus dans ce tableau
+$tabSessionFlash = $this->Session->read('Flash');
+
 echo $this->Flash->render('success');
 echo $this->Flash->render('error');
+
+if (!empty($tabSessionFlash)) {
+    echo '</br>';
+}
 ?>
+
+<?= $this->Html->link('Ajouter', '/admin-articles/show-form', ['class' => 'btn btn-primary']) ?>
 
 <table class="table table-bordered mt-2">
 <?php
-echo $this->Html->tableHeaders(
-    ['Rubrique', 'Date création', 'Titre', 'Descriptif', 'Contenu', ''],
+echo $this->Html->tableHeaders([
+    'Rubrique',
+    ['Date création' => ['class' => 'text-center', 'style' => 'width:18.5%']],
+    'Titre',
+    'Descriptif',
+    ['Contenu' => ['class' => 'text-center', 'style' => 'width:25%']],
+    ['' => ['style' => 'width:7%']],
+    ],
     ['class' => 'thead-dark'],
     ['class' => 'text-center']
 );
@@ -18,7 +33,7 @@ foreach ($articles as $article) {
         $article->descriptif,
         $this->Text->truncate(
             $article->contenu,
-            100,//longueur maximal
+            30,//longueur maximal
             ['ellipsis' => ' ...',//texte de fin si dépassement
             'exact' => true,//ne coupe pas un mot
             'html' => true]//ne coupe pas une balise

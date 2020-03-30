@@ -2,7 +2,7 @@
 <?php
 echo $this->Form->create($article, ['url' => ['action' => "show-form"], 'templates' => 'form-template']);
 //rubrique
-echo $this->Form->select('rubrique_id', $tabRubriques, ['id' => false, 'label' => false, 'required' => 0, 'empty' => 'Choisir une rubrique...', 'val' => $article->rubrique_id]);
+echo $this->Form->control('rubrique_id', ['type' => 'select', 'options' => $tabRubriques, 'id' => false, 'label' => false, 'required' => 0, 'empty' => 'Choisir une rubrique...', 'val' => $article->rubrique_id]);
 //date création
 echo $this->Form->control('dateCreation', ['type' => 'text', 'id' => 'dateCreation', 'label' => false, 'placeholder' => 'Date création', 'required' => 0]);
 //titre

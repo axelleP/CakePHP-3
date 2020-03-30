@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
 
+use App\Model\Entity\Article;
+
 class AdminArticlesController extends AppController
 {
     var $components = array('Flash');//permet d'utiliser les flash messages
@@ -40,10 +42,10 @@ class AdminArticlesController extends AppController
             return $this->redirect(['controller' => 'AdminArticles', 'action' => 'showDashboard']);
         }
 
+        $table_article = TableRegistry::getTableLocator()->get('Articles');
         if (empty($id)) {
             $article = new Article();
         } else {
-            $table_article = TableRegistry::getTableLocator()->get('Articles');
             $article = $table_article->get($id);
         }
 
@@ -65,6 +67,8 @@ class AdminArticlesController extends AppController
 
             if (!$article->errors()) {
                 $table_article->save($article);
+                $this->Flash->success("L'article \"$article->titre\" a bien été crée.", ['key' => 'success']);
+
                 return $this->redirect(['controller' => 'AdminArticles', 'action' => 'showDashboard']);
             }
         }
@@ -77,12 +81,19 @@ class AdminArticlesController extends AppController
     public function delete($id)
     {
         $table_article = TableRegistry::getTableLocator()->get('Articles');
-        $article = $table_article->get($id, ['contain' => ['Commentaires']]);
+        $article = $table_article->get($id, ['contain' => ['Commentaires' => ['Commentaires2']]]);
 
         if (!empty($article->commentaires)) {
             $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
 
             foreach ($article->commentaires as $commentaire) {
+                //si le commentaire possède un ou plusieurs com.
+                if (!empty($commentaire->commentaires2)) {
+                    foreach ($commentaire->commentaires2 as $commentaire2) {
+                        $table_commentaire->delete($commentaire2);
+                    }
+                }
+
                 $table_commentaire->delete($commentaire);
             }
         }
@@ -90,7 +101,7 @@ class AdminArticlesController extends AppController
         $result = $table_article->delete($article);
 
         if ($result) {
-            $this->Flash->success("L'article et ses commentaires ont bien été supprimés.", ['key' => 'success']);
+            $this->Flash->success("L'article \"$article->titre\" et ses commentaires ont bien été supprimés.", ['key' => 'success']);
         } else {
             $this->Flash->error("Une erreur s'est produite lors de la suppression.", ['key' => 'error']);
         }

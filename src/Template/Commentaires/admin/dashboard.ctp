@@ -5,8 +5,13 @@ echo $this->Flash->render('error');
 
 <table class="table table-bordered mt-2">
 <?php
-echo $this->Html->tableHeaders(
-    ['Date création', 'Article', 'Utilisateur', 'Commentaire', ''],
+echo $this->Html->tableHeaders([
+    ['Date création' => ['class' => 'text-center', 'style' => 'width:18.5%']],
+    'Article',
+    'Utilisateur',
+    'Commentaire',
+    ['' => ['style' => 'width:7%']],
+    ],
     ['class' => 'thead-dark'],
     ['class' => 'text-center']
 );

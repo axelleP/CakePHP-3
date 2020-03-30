@@ -1,3 +1,9 @@
+/* menu */
+.nav-link.menuCourant {
+    color: white !important;
+    background-color: black;
+}
+
 /* calendrier */
 .bootstrap-datetimepicker-widget.dropdown-menu.usetwentyfour {
     position : static;

@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
 
+use App\Model\Entity\Rubrique;
+
 class AdminRubriquesController extends AppController
 {
     var $components = array('Flash');//permet d'utiliser les flash messages
@@ -28,10 +30,10 @@ class AdminRubriquesController extends AppController
             return $this->redirect(['controller' => 'AdminRubriques', 'action' => 'showDashboard']);
         }
 
+        $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
         if (empty($id)) {
             $rubrique = new Rubrique();
         } else {
-            $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
             $rubrique = $table_rubrique->get($id);
         }
 
@@ -43,6 +45,8 @@ class AdminRubriquesController extends AppController
 
             if (!$rubrique->errors()) {
                 $table_rubrique->save($rubrique);
+                $this->Flash->success("La rubrique \"$rubrique->nom\" a bien été créée.", ['key' => 'success']);
+
                 return $this->redirect(['controller' => 'AdminRubriques', 'action' => 'showDashboard']);
             }
         }
@@ -63,7 +67,7 @@ class AdminRubriquesController extends AppController
             $result = $table_rubrique->delete($rubrique);
 
             if ($result) {
-                $this->Flash->success("La rubrique $rubrique->nom a bien été supprimée.", ['key' => 'success']);
+                $this->Flash->success("La rubrique \"$rubrique->nom\" a bien été supprimée.", ['key' => 'success']);
             } else {
                 $this->Flash->error("Une erreur s'est produite lors de la suppression.", ['key' => 'error']);
             }
