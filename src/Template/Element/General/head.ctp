@@ -15,6 +15,7 @@
         if ($layout == 'admin') {
             $tabCSS[] = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css';
             $tabCSS[] = 'admin.css';
+            $tabCSS[] = 'https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css';
         }
 
         echo $this->Html->css($tabCSS);
@@ -30,6 +31,7 @@
             $tabScript[] = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js';
             $tabScript[] = 'https://use.fontawesome.com/97e8ddd49a.js';//images gratuites
             $tabScript[] = 'https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js';
+            $tabScript[] = 'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js';//bibliothèque pour tableau HTML
         }
 
         echo $this->Html->script($tabScript);

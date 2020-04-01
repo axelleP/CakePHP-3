@@ -12,12 +12,12 @@ class ArticlesController extends AppController
         'Articles' => [
             'fields' => ['Articles.id'],
             'limit' => 1,
-            'order' => ['Articles.titre' => 'asc']
+            'order' => ['Articles.dateCreation' => 'desc']
         ],
         'Commentaires' => [
             'fields' => ['Commentaires.id'],
             'limit' => 3,
-            'order' => ['Commentaires.commentaire' => 'asc']
+            'order' => ['Commentaires.dateCreation' => 'desc']
         ]
     ];
 

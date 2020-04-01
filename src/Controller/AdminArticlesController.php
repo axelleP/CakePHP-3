@@ -9,6 +9,14 @@ class AdminArticlesController extends AppController
 {
     var $components = array('Flash');//permet d'utiliser les flash messages
 
+    public $paginate = [
+        'Articles' => [
+            'fields' => ['Articles.id'],
+            'limit' => 1,
+            'order' => ['Articles.dateCreation' => 'desc']
+        ],
+    ];
+
     public function initialize()
     {
         $this->layout = 'admin';
@@ -20,7 +28,8 @@ class AdminArticlesController extends AppController
 
         $table_article = TableRegistry::getTableLocator()->get('Articles');
         $query_article = $table_article->find('all', ['contain' => ['Rubriques'], 'order' => 'Articles.id DESC']);
-        $articles = $query_article->toArray();//exécute la requête
+        $query_article->toArray();//exécute la requête
+        $articles = $this->paginate($query_article);
 
         $this->set(['articles' => $articles]);
 
@@ -51,7 +60,7 @@ class AdminArticlesController extends AppController
 
         //récupération de la liste des rubriques
         $table_rubrique = TableRegistry::getTableLocator()->get('Rubriques');
-        $query_rubrique = $table_rubrique->find('all', ['order' => 'Rubriques.id DESC']);
+        $query_rubrique = $table_rubrique->find('all', ['order' => 'Rubriques.nom ASC']);
         $rubriques = $query_rubrique->toArray();//exécute la requête
 
         $tabRubriques = array();

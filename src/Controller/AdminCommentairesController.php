@@ -7,6 +7,14 @@ class AdminCommentairesController extends AppController
 {
     var $components = array('Flash');//permet d'utiliser les flash messages
 
+    public $paginate = [
+        'Commentaires' => [
+            'fields' => ['Commentaires.id'],
+            'limit' => 1,
+            'order' => ['Commentaires.dateCreation' => 'desc']
+        ],
+    ];
+
     public function initialize()
     {
         $this->layout = 'admin';
@@ -16,7 +24,8 @@ class AdminCommentairesController extends AppController
     {
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
         $query_commentaire = $table_commentaire->find('all', ['contain' => ['Articles', 'Users'], 'order' => 'Commentaires.id DESC']);
-        $commentaires = $query_commentaire->toArray();//exécute la requête
+        $query_commentaire->toArray();//exécute la requête
+        $commentaires = $this->paginate($query_commentaire);
 
         $this->set(['commentaires' => $commentaires]);
 
