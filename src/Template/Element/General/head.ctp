@@ -13,9 +13,11 @@
         ];
 
         if ($layout == 'admin') {
-            $tabCSS[] = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css';
             $tabCSS[] = 'admin.css';
-            $tabCSS[] = 'https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css';
+            //calendrier
+            $tabCSS[] = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css';
+            //datatables
+            $tabCSS[] = 'https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css';
         }
 
         echo $this->Html->css($tabCSS);
@@ -27,11 +29,16 @@
         ];
 
         if ($layout == 'admin') {
-            $tabScript[] = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js';//bibliothèque pour la gestion des dates
+            //calendrier
+            $tabScript[] = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js';//gestion des dates
             $tabScript[] = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js';
-            $tabScript[] = 'https://use.fontawesome.com/97e8ddd49a.js';//images gratuites
+            //images gratuites
+            $tabScript[] = 'https://use.fontawesome.com/97e8ddd49a.js';
+            //ckeditor
             $tabScript[] = 'https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js';
-            $tabScript[] = 'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js';//bibliothèque pour tableau HTML
+            //datatables
+            $tabScript[] = 'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js';
+            $tabScript[] = 'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js';
         }
 
         echo $this->Html->script($tabScript);

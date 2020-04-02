@@ -28,7 +28,11 @@ if (count($rubriques) != 0) {
             ['class' => 'thead-dark'],
             ['class' => 'text-center']
         );
+        ?>
+        </thead>
 
+        <tfoot>
+        <?php
         //filtres
         echo $this->Html->tableHeaders(
             [
@@ -39,33 +43,33 @@ if (count($rubriques) != 0) {
             , ['class' => 'filters']
         );
         ?>
-        </thead>
+        </tfoot>
         <?php
 
-    //données
-    foreach ($rubriques as $rubrique) {
-        echo $this->Html->tableCells([
-            $rubrique->nom,
-            $rubrique->descriptif,
-            array(
-                //modifier
-                $this->Html->link(
-                    $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn']),
-                    ['controller' => 'adminRubriques', 'action' => "showForm/$rubrique->id"],
-                    ['escape' => false]
+        //données
+        foreach ($rubriques as $rubrique) {
+            echo $this->Html->tableCells([
+                $rubrique->nom,
+                $rubrique->descriptif,
+                array(
+                    //modifier
+                    $this->Html->link(
+                        $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn']),
+                        ['controller' => 'adminRubriques', 'action' => "showForm/$rubrique->id"],
+                        ['escape' => false]
+                    )
+                    . '<br/>'
+                    //supprimer
+                    . $this->Html->link(
+                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn']),
+                        ['controller' => 'adminRubriques', 'action' => "delete/$rubrique->id"],
+                        ['escape' => false, 'confirm' => 'Confirmez-vous la suppression?']
+                    ),
+                    ['class' => 'text-center']//centre la colonne des actions
                 )
-                . '<br/>'
-                //supprimer
-                . $this->Html->link(
-                    $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn']),
-                    ['controller' => 'adminRubriques', 'action' => "delete/$rubrique->id"],
-                    ['escape' => false, 'confirm' => 'Confirmez-vous la suppression?']
-                ),
-                ['class' => 'text-center']//centre la colonne des actions
-            )
-        ], ['class' => 'rows'], ['class' => 'rows']);
-    }
-    ?>
+            ], ['class' => 'rows'], ['class' => 'rows']);
+        }
+        ?>
     </table>
 <?php
 } else {
@@ -79,8 +83,9 @@ if (count($rubriques) != 0) {
             "columnDefs": [
                 { "orderable": false, "targets": 2 }//désactive le tri sur la 3eme colonne
             ],
+            "lengthMenu": [[1, 10, 25, -1], [1, 10, 25, "Tous"]],//nb de résultats par page
             "language": {
-                "lengthMenu": "Nombre de résultats par page : _MENU_",
+                "lengthMenu": "Nombre de résultats par page : &nbsp; _MENU_",
                 "info": "Affichage de _START_ à _END_ sur _TOTAL_ résultat(s)",
                 "infoEmpty": "Aucun résultat",
                 "infoFiltered": "",
@@ -90,19 +95,16 @@ if (count($rubriques) != 0) {
                     "next": "Suivant"
                 }
             },
-            "dom": '<"wrapper"litip>'//configure l'emplacement des éléments : nb/pages, info res., tableau...
+            //configure l'emplacement des éléments (+ ajout de div et de class)
+            //l: nb/pages, i:info res., t:tableau, p:pagination
+            "dom": '<"wrapper"liti<"d-flex justify-content-center mt-4"p>>'
         });
-
-        // DataTable
-//        $.fn.dataTableExt.oStdClasses.previous = 'button button-primary';
-//        $.fn.dataTableExt.oJUIClasses.previous = 'button button-primary';
-//        $.fn.dataTable.ext.classes.previous = 'button button-primary';
 
         //applique la recherche
         table.columns().every( function () {
             var that = this;
 
-            $('input', this.header()).on('keyup', function () {
+            $('input', this.footer()).on('keyup', function () {
                 if (that.search() !== this.value) {
                     that.search(this.value).draw();//recrée (draw:redessine) le tableau
                 }

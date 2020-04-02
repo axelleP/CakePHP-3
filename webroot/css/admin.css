@@ -9,3 +9,8 @@
     position : static;
     width: 100%;
 }
+
+/* met les filtres sous les titres de colonnes */
+tfoot {
+    display: table-header-group;
+}
