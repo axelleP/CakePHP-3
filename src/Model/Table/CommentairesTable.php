@@ -12,7 +12,8 @@ class CommentairesTable extends Table
         $this->belongsTo('Users');
         $this->hasMany('Commentaires2', [
             'className' => 'Commentaires',//table Commentaires
-            'foreignKey' => 'commentaire_id'//clé étrangère commentaire_id
+            'foreignKey' => 'commentaire_id',//clé étrangère commentaire_id
+            'dependent' => true,//suppression des com2. liés au com. quand le com. est supprimé
         ]);
     }
 

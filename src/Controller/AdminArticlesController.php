@@ -9,14 +9,6 @@ class AdminArticlesController extends AppController
 {
     var $components = array('Flash');//permet d'utiliser les flash messages
 
-    public $paginate = [
-        'Articles' => [
-            'fields' => ['Articles.id'],
-            'limit' => 1,
-            'order' => ['Articles.dateCreation' => 'desc']
-        ],
-    ];
-
     public function initialize()
     {
         $this->layout = 'admin';
@@ -28,8 +20,7 @@ class AdminArticlesController extends AppController
 
         $table_article = TableRegistry::getTableLocator()->get('Articles');
         $query_article = $table_article->find('all', ['contain' => ['Rubriques'], 'order' => 'Articles.id DESC']);
-        $query_article->toArray();//exécute la requête
-        $articles = $this->paginate($query_article);
+        $articles = $query_article->toArray();//exécute la requête
 
         $this->set(['articles' => $articles]);
 
@@ -91,23 +82,8 @@ class AdminArticlesController extends AppController
     {
         $table_article = TableRegistry::getTableLocator()->get('Articles');
         $article = $table_article->get($id, ['contain' => ['Commentaires' => ['Commentaires2']]]);
-
-        if (!empty($article->commentaires)) {
-            $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
-
-            foreach ($article->commentaires as $commentaire) {
-                //si le commentaire possède un ou plusieurs com.
-                if (!empty($commentaire->commentaires2)) {
-                    foreach ($commentaire->commentaires2 as $commentaire2) {
-                        $table_commentaire->delete($commentaire2);
-                    }
-                }
-
-                $table_commentaire->delete($commentaire);
-            }
-        }
-
-        $result = $table_article->delete($article);
+        //atomic : désactive la transaction car sinon problème avec les transactions des modèles supprimés en cascade?
+        $result = $table_article->delete($article, ['atomic' => false]);
 
         if ($result) {
             $this->Flash->success("L'article \"$article->titre\" et ses commentaires ont bien été supprimés.", ['key' => 'success']);

@@ -9,7 +9,10 @@ class ArticlesTable extends Table
 {
     public function initialize(array $config)
     {
-        $this->hasMany('Commentaires');
+        $this->hasMany('Commentaires', [
+            'dependent' => true//suppression des com. liés à l'article quand l'art. est supprimé
+            , 'cascadeCallbacks' => true//appel des fonctions "afterDelete" : exemple le dependent dans CommentairesTable
+        ]);
         $this->belongsTo('Rubriques');
     }
 
