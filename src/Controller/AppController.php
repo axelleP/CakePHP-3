@@ -42,24 +42,18 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
+        $this->loadComponent('RequestHandler', [//Gestion des requêtes
+            'enableBeforeRedirect' => false,//on désactive car cette fonction est supprimée dans CakePHP4
         ]);
         $this->loadComponent('Flash');
-        //options d'authentification de l'utilisateur
+        //charge et configure l'authentification d'un utilisateur
         $this->loadComponent('Auth', [
-//            'unauthorizedRedirect' => false,//empêche la redirection
-            'loginAction' => [],
-            'logoutRedirect' => [
+            'logoutRedirect' => [//redirection après déconnexion
                 'controller' => 'Pages',
-                'action' => 'show-home',
+                'action' => 'showHome',
                 'home'
             ],
-//            'loginRedirect' => array(
-//                'admin' => false,
-//                'controller' => 'admin',
-//                'action' => 'show-dashboard'
-//            )
+            'authError' => "Vous n'êtes pas autorisé à accéder à cette page.",//message d'interdiction
         ]);
 
         $this->set(array('user' => new User()));//pour le formulaire de connexion
@@ -71,11 +65,11 @@ class AppController extends Controller
         //$this->loadComponent('Security');
     }
 
+    //permet aux utilisateurs d'accéder aux pages suivantes sans se connecter
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        //permet aux visiteurs d'accéder aux pages suivantes
-//        $this->Auth->allow(['Pages.show-home', 'Articles.show-list', 'Articles.show-view']);
-//        $this->Auth->allow(['show-home', 'show-list', 'show-view']);
+        $this->Auth->allow(['showList', 'showView']);
     }
+
 }

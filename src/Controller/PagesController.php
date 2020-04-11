@@ -18,6 +18,7 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Event\Event;//pour la fonction beforeFilter
 
 /**
  * Static content controller
@@ -28,6 +29,12 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+    //permet aux utilisateurs d'accéder aux pages suivantes sans se connecter
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('display');
+    }
 
     /**
      * Displays a view

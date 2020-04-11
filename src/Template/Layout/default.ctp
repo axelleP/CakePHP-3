@@ -24,7 +24,6 @@
                     <ul class="navbar-nav col-lg-7 align-self-center">
                         <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/show-home', ['class' => "nav-link"]) ?></li>
                         <li class="nav-item"><?= $this->Html->link('Articles', '/articles/show-list', ['class' => "nav-link"]) ?></li>
-                        <li class="nav-item"><?= $this->Html->link('Articles populaires', '/articles/show-list/' . serialize(array('isPopulaire' => true)), ['class' => "nav-link"]) ?></li>
                     </ul>
 
                     <?php

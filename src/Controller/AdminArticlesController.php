@@ -11,13 +11,12 @@ class AdminArticlesController extends AppController
 
     public function initialize()
     {
+        parent::initialize();
         $this->layout = 'admin';
     }
 
     public function showDashboard()
     {
-//        $u = $this->Auth->user();
-
         $table_article = TableRegistry::getTableLocator()->get('Articles');
         $query_article = $table_article->find('all', ['contain' => ['Rubriques'], 'order' => 'Articles.id DESC']);
         $articles = $query_article->toArray();//exécute la requête

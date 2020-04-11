@@ -2,6 +2,7 @@
 $this->Breadcrumbs->add('Articles', ['controller' => 'Articles', 'action' => 'showList']);
 echo $this->element('Utility/breadcrumb');
 
+//information sur la recherche
 if ($articles->count() != 0) {
     echo '<div style="font-size:1.1em; text-align:center;">' . $this->Paginator->total('Articles') . ' article(s) trouvé(s)';
 
@@ -15,30 +16,32 @@ if ($articles->count() != 0) {
     echo '<div style="font-size:1.1em; text-align:center; color:red;">Aucun article ne correspond à votre recherche.</div>';
 }
 
-if ($articles->count() != 0) {
 ?>
-    <br/>
-    <span style="font-size:1.1em;">Choisir une rubrique :</span>
-<?php
-    echo $this->Form->create('', ['id' => 'formRubrique', 'method' => 'GET']);
-    echo $this->Form->hidden('page', ['value' => 1]);//remet la pagination sur la page 1
-    if (isset($tabConditions['keyword'])) {
-        echo $this->Form->hidden('keyword', ['value' => $tabConditions['keyword']]);
-    }
-    echo $this->Form->select('rubrique_id', $listeRubriques, [
-        'empty' => '-- Choisissez --'
-        , 'id' => 'rubrique'
-        , 'onchange'=>'$("#formRubrique").submit();'
-        , 'value' => $rubrique_id
-    ]);
-    echo $this->Form->end();
-}
 
-echo '<br/><br/>';
+<br/>
+
+<span style="font-size:1.1em;">Choisir une rubrique :</span>
+<?php
+//formulaire choix rubrique
+echo $this->Form->create('', ['id' => 'formRubrique', 'method' => 'GET']);
+echo $this->Form->hidden('page', ['value' => 1]);//remet la pagination sur la page 1
+if (isset($tabConditions['keyword'])) {
+    echo $this->Form->hidden('keyword', ['value' => $tabConditions['keyword']]);
+}
+echo $this->Form->select('rubrique_id', $listeRubriques, [
+    'empty' => '-- Choisissez --'
+    , 'id' => 'rubrique'
+    , 'onchange'=>'$("#formRubrique").submit();'
+    , 'value' => $rubrique_id
+]);
+echo $this->Form->end();
 ?>
+
+<br/><br/>
 
 <div class="row d-flex justify-content-center m-0 mb-3">
     <?php
+    //articles
     if ($articles->count() != 0) {
         foreach ($articles as $article) {
         ?>
@@ -58,6 +61,7 @@ echo '<br/><br/>';
 </div>
 
 <?php
+//pagination
 if ($this->Paginator->total('Articles') > 1) {
     $this->Paginator->options(array('url' => array('action' => 'show-list', 'conditions' => serialize($tabConditions))));
 ?>

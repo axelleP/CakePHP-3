@@ -9,6 +9,7 @@ class AdminCommentairesController extends AppController
 
     public function initialize()
     {
+        parent::initialize();
         $this->layout = 'admin';
     }
 

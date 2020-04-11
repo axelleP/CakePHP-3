@@ -2,51 +2,57 @@
 namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;//pour la fonction beforeFilter
 
 class UsersController extends AppController
 {
+    //permet aux utilisateurs d'accéder aux pages suivantes sans se connecter
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('createAdmin');
+    }
+
+    //permet d'ajouter un admin avec un mot de passe valide pour le composant Auth
+//    public function createAdmin()
+//    {
+//        $this->autoRender = false;//pas de render
+//
+//        $user = $this->Users->newEntity();
+//        $user->set('role', 'admin');
+//        $user->set('username', 'axelle');
+//        $user->set('password', 'admin');
+//        $user->set('email', 'be.fri@hotmail.fr');
+//        $this->Users->save($user);
+//    }
 
     public function login()
     {
-        $this->autoRender = false;
-        $this->response->type('json');
+        //soumission du formulaire de connexion
+        if ($this->request->is('post')) {
+            $this->autoRender = false;//pas de render
+            $this->response->type('json');//type de réponse de la requête en JSON
+            $tabErrors = array();
 
-        $dataForm = $this->request->getData();
+            $user = $this->Auth->identify();//fonctionne auto. en utilisant les conventions dans la bdd : users : username, password
 
-        $table_user = TableRegistry::getTableLocator()->get('Users');
-        $user = $table_user->newEntity($dataForm);
-
-        $tabErrors = array();
-        if (!$user->errors()) {
-            //recherche de l'utilisateur en bdd
-            $query_user = $table_user->find('all', [
-                'conditions' => ['username =' => $user->username, 'password =' => $user->password],
-                'limit' => 1
-            ]);
-            $user = $query_user->first();
-
-            if (is_null($user)) {
-                $statut = 'error';
-                $tabErrors['all'][] = "Identifiant et/ou mot de passe incorrect.";
-            } else {
+            if ($user) {
                 $statut = 'success';
                 $this->Auth->setUser($user);
+            } else {
+                $statut = 'error';
+                $tabErrors['all'][] = "Identifiant et/ou mot de passe incorrect.";
             }
-        } else {
-            $statut = 'error';
-            foreach ($user->getErrors() as $champ => $errors) {
-                foreach ($errors as $error) {
-                    $tabErrors[$champ][] = $error;
-                }
-            }
-        }
 
-        $json = json_encode(array('statut' => $statut, 'tabErrors' => $tabErrors));
-        $this->response->body($json);
+            $json = json_encode(array('statut' => $statut, 'tabErrors' => $tabErrors));
+            $this->response->body($json);
+        } else {
+            return $this->redirect(['controller' => 'Pages', 'action' => 'show-home']);
+        }
     }
 
     public function logout() {
-        $this->redirect($this->Auth->logout());
+        return $this->redirect($this->Auth->logout());
     }
 
 }
