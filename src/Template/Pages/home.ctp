@@ -1,4 +1,5 @@
 <?php
+echo $this->Flash->render('success');
 $this->Breadcrumbs->add('Accueil', ['controller' => 'Pages', 'action' => 'showHome']);
 echo $this->element('Utility/breadcrumb');
 ?>

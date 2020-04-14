@@ -121,7 +121,7 @@ class ArticlesController extends AppController
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
         $query_commentaires = $table_commentaire->find('all', [
             'conditions' => ['Commentaires.article_id =' => $id, 'Commentaires.commentaire_id IS NULL'],
-            'contain' => ['Users', 'Commentaires2', 'Commentaires2.Users'],
+            'contain' => ['Users', 'Commentaires2' => ['sort' => ['Commentaires2.dateCreation' => 'DESC']], 'Commentaires2.Users'],
             'order' => 'Commentaires.dateCreation DESC'
         ]);
         $query_commentaires->toArray();//exécute la requête
@@ -177,24 +177,27 @@ class ArticlesController extends AppController
         if (!$commentaire->errors()) {
             $table_commentaire->save($commentaire);
 
-            //prévient l'auteur du commentaire originel d'une réponse
-            if (!empty($commentaire->commentaire_id)) {
+            //prévient l'auteur du commentaire originel d'une réponse (s'il n'est pas désinscrit)
+            if (!empty($commentaire->commentaire_id) && !empty($user->email)) {
                 $table_com = TableRegistry::getTableLocator()->get('Commentaires');
-                $query_com = $table_com->find('all', ['conditions' => ['Commentaires.id' => $commentaire->id], 'contain' => ['Articles']]);
-                $commentaire2 = $query_com->first();
-                $this->sendEmail($user, $commentaire2);
+                $commentaire2 = $table_com->get($commentaire->commentaire_id, ['contain' => ['Articles', 'Users']]);
+
+                //on envoie pas si c'est l'auteur lui même qui a posté le com.
+                if ($commentaire2->user->id != $user->id) {
+                    $this->sendEmail($commentaire2);
+                }
             }
         }
 
         return $commentaire;
     }
 
-    public function sendEmail($user, $commentaire) {
+    public function sendEmail($commentaire) {
         $email = new Email();
         $email->setEmailFormat('html');
-        $email->setTo('be.fri@hotmail.fr');
+        $email->setTo($commentaire->user->email);
         $email->setSubject("CakePHP Training - Réponse à votre commentaire");
-        $email->viewVars(['username' => $user->username, 'idArticle' => $commentaire->article->id, 'nomArticle' => $commentaire->article->titre]);
+        $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('new_comment');
         $email->send();

@@ -27,7 +27,7 @@
                             <li class="nav-item"><?= $this->Html->link('Rubriques', '/admin-rubriques/show-dashboard', ['id' => 'menuRubrique', 'class' => 'nav-link']) ?></li>
                             <li class="nav-item"><?= $this->Html->link('Commentaires', '/admin-commentaires/show-dashboard', ['id' => 'menuCommentaire', 'class' => 'nav-link']) ?></li>
                             <br/>
-                            <li class="nav-item"><?= $this->Html->link('Retour au site', '/pages/show-home', ['class' => 'nav-link', 'target' => '_blank']) ?></li>
+                            <li class="nav-item"><?= $this->Html->link('Retour au site', '/pages/show-home', ['class' => 'nav-link']) ?></li>
                             <li class="nav-item"><?= $this->Html->link('Se déconnecter', '/users/logout', ['class' => 'nav-link']) ?></li>
                         </ul>
                     </nav>

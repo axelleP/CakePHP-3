@@ -6,6 +6,8 @@ use Cake\Event\Event;//pour la fonction beforeFilter
 
 class UsersController extends AppController
 {
+    var $components = array('Flash');//permet d'utiliser les flash messages
+
     //permet aux utilisateurs d'accéder aux pages suivantes sans se connecter
     public function beforeFilter(Event $event)
     {
@@ -53,6 +55,16 @@ class UsersController extends AppController
 
     public function logout() {
         return $this->redirect($this->Auth->logout());
+    }
+
+    public function unsubscribe($id) {
+        $user = $this->Users->get($id);
+        $user->email = '';
+        $this->Users->save($user);
+
+        $this->Flash->success("Vous êtes bien désinscrit du site CakePHP Training.", ['key' => 'success']);
+
+        return $this->redirect(['controller' => 'Pages', 'action' => 'show-home']);
     }
 
 }

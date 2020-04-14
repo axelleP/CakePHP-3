@@ -68,7 +68,17 @@
             <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
                 <div class="text-center">
                     <small>
-                        <a id="lienConnexion">Administration</a>
+                        <?php
+                        if (!$this->Session->read('Auth.User')) {
+                        ?>
+                            <a id="lienConnexion">Administration</a>
+                        <?php
+                        } else {
+                            echo $this->Html->link('Administration', '/admin-articles/show-dashboard', ['style' => 'color: rgba(255,255,255,.5);']);
+                            echo ' - ';
+                            echo $this->Html->link('Se déconnecter', '/users/logout', ['style' => 'color: rgba(255,255,255,.5);']);
+                        }
+                        ?>
                         <br/>Copyright &copy; CakePHP Training
                     </small>
                 </div>
