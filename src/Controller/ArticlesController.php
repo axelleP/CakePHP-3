@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
+use Cake\Mailer\Email;
 
 use App\Model\Entity\Commentaire;
 
@@ -145,30 +146,72 @@ class ArticlesController extends AppController
     }
 
     public function createCommentaire($dataForm) {
-        $table_user = TableRegistry::getTableLocator()->get('Users');
-        //recherche de l'utilisateur en bdd
-        $query_user = $table_user->find('all', [
-            'conditions' => ['email =' => $dataForm['email']],
-            'limit' => 1
-        ]);
-        $user = $query_user->first();
-        //s'il n'existe pas on le crée
-        if (empty($user)) {
-            $user = $table_user->newEntity();
-            $user->set('username', $dataForm['username']);
-            $user->set('email', $dataForm['email']);
-            $table_user->save($user);
+        $idUser = null;
+
+        if (!empty($dataForm['email'])) {
+            $table_user = TableRegistry::getTableLocator()->get('Users');
+            //recherche de l'utilisateur en bdd
+            $query_user = $table_user->find('all', [
+                'conditions' => ['email =' => $dataForm['email']],
+                'limit' => 1
+            ]);
+            $user = $query_user->first();
+            //s'il n'existe pas on le crée
+            if (empty($user)) {
+                $user = $table_user->newEntity();
+                $user->set('role', 'visiteur');
+                $user->set('username', $dataForm['username']);
+                $user->set('email', $dataForm['email']);
+                $table_user->save($user);
+            }
+
+            $idUser = $user->id;
         }
 
         //création du commentaire en bdd si l'objet est valide (vérification par newEntity())
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
-        $dataForm['user_id'] = $user->id;
+        $dataForm['user_id'] = $idUser;
         $dataForm['dateCreation'] = Time::now();
         $commentaire = $table_commentaire->newEntity($dataForm);//affectation des valeurs + check form
+
         if (!$commentaire->errors()) {
             $table_commentaire->save($commentaire);
+
+            //prévient l'auteur du commentaire originel d'une réponse
+            if (!empty($commentaire->commentaire_id)) {
+                $table_com = TableRegistry::getTableLocator()->get('Commentaires');
+                $query_com = $table_com->find('all', ['conditions' => ['Commentaires.id' => $commentaire->id], 'contain' => ['Articles']]);
+                $commentaire2 = $query_com->first();
+                $this->sendEmail($user, $commentaire2);
+            }
         }
 
         return $commentaire;
+    }
+
+    public function sendEmail($user, $commentaire) {
+        $email = new Email();
+        $email->setEmailFormat('html');
+        $email->setTo('be.fri@hotmail.fr');
+        $email->setSubject("CakePHP Training - Réponse à votre commentaire");
+        $email->viewVars(['username' => $user->username, 'idArticle' => $commentaire->article->id, 'nomArticle' => $commentaire->article->titre]);
+        $email->viewBuilder()->setLayout('default');
+        $email->viewBuilder()->setTemplate('new_comment');
+        $email->send();
+    }
+
+    public function sendEmailTest() {
+        $this->autoRender = false;//pas de render
+
+        $email = new Email();
+        $email->setEmailFormat('html');
+        $email->setTo('be.fri@hotmail.fr');
+        $email->setSubject("CakePHP Training - Réponse à votre commentaire");
+        $email->viewVars(['username' => 'username', 'idArticle' => 20, 'nomArticle' => 'nomArticle']);
+        $email->viewBuilder()->setLayout('default');
+        $email->viewBuilder()->setTemplate('new_comment');
+        $email->send();
+
+        echo 'OK';
     }
 }
