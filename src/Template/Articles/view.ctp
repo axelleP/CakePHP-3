@@ -2,10 +2,20 @@
 use Cake\Routing\Router;
 $urlCourante = Router::url(null, true);
 
+//rque : quand on affiche un flash message, il n'est plus dans ce tableau
+$tabSessionFlash = $this->Session->read('Flash');
+
 $this->Breadcrumbs->add([
     ['title' => 'Articles', 'url' => ['controller' => 'Articles', 'action' => 'showList']],
     ['title' => $article->titre, 'url' => ['controller' => 'Articles', 'action' => 'showView', $article->id]]
 ]);
+
+echo $this->Flash->render('success');
+
+if (!empty($tabSessionFlash)) {
+    echo '</br>';
+}
+
 echo $this->element('Utility/breadcrumb');
 ?>
 

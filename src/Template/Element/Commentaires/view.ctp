@@ -10,7 +10,17 @@
             <strong><?= $com->user->username; ?></strong> <span class="text-muted" style="word-wrap: break-word;">Le <?= $com->dateCreation ?></span>
         </div>
 
-        <div class="panel-body" style="word-wrap: break-word;"><?= nl2br($com->commentaire); ?></div>
+        <div class="panel-body" style="word-wrap: break-word;">
+            <?= nl2br($com->commentaire); ?>
+            <br/>
+            <?php
+            $txtSignalement = '';
+            if (!empty($com->nbSignalement)) {
+                $txtSignalement = "($com->nbSignalement)";
+            }
+            ?>
+            <div class="text-right"><?= $this->Html->link("Signaler ce commentaire $txtSignalement", "/commentaires/signaler/$com->id") ?></div>
+        </div>
     </div>
 </div>
 

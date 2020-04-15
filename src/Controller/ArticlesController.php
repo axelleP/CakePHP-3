@@ -184,7 +184,7 @@ class ArticlesController extends AppController
 
                 //on envoie pas si c'est l'auteur lui même qui a posté le com.
                 if ($commentaire2->user->id != $user->id) {
-                    $this->sendEmail($commentaire2);
+                    $this->sendEmailReponse($commentaire2);
                 }
             }
         }
@@ -192,14 +192,14 @@ class ArticlesController extends AppController
         return $commentaire;
     }
 
-    public function sendEmail($commentaire) {
+    public function sendEmailReponse($commentaire) {
         $email = new Email();
         $email->setEmailFormat('html');
         $email->setTo($commentaire->user->email);
         $email->setSubject("CakePHP Training - Réponse à votre commentaire");
         $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
         $email->viewBuilder()->setLayout('default');
-        $email->viewBuilder()->setTemplate('new_comment');
+        $email->viewBuilder()->setTemplate('nouveau_commentaire');
         $email->send();
     }
 

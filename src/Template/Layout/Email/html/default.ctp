@@ -9,5 +9,28 @@
             a:hover{text-decoration: underline; color:#0056B3;}
         </style>
     </head>
-    <body><?= $this->fetch('content'); ?></body>
+    <body>
+        <div style="background-color: #333333; padding: 4rem 4rem 1rem 4rem;">
+            <div style="background-color: white; padding: 2rem;">
+                <h1 style="text-align:center;">CakePHP Training</h1>
+                <br/>
+                <p>
+                    <?= $this->fetch('content'); ?>
+                    <br/><br/><br/>
+                    <hr>
+                    Axelle PALERMO<br/>
+                    <a href="http://localhost/CakePHP/pages/show-home">CakePHP Training</a>
+                </p>
+            </div>
+            <?php
+            //lien de désinscription
+            if ($user->role != 'admin') {
+            ?>
+                <br/><br/><br/>
+                <a href="http://localhost/CakePHP/users/unsubscribe/<?= $user->id ?>" style="color:white; font-size:0.9em;">Se désinscrire</a>
+            <?php
+            }
+            ?>
+        </div>
+    </body>
 </html>

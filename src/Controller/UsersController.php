@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use Cake\ORM\TableRegistry;
 use Cake\Event\Event;//pour la fonction beforeFilter
 
 class UsersController extends AppController
