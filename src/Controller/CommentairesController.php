@@ -33,11 +33,19 @@ class CommentairesController extends AppController
 
         $email = new Email();
         $email->setEmailFormat('html');
+        $email->setHeaders([
+            'From' => 'CakePHP Training : ' . $configEmail['from'],
+            'To' => $configEmail['from'],
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'MIME-Version' => 1.0,
+            'Content-Type' => 'text/html; charset=UTF-8'
+        ]);
         $email->setTo($configEmail['from']);
         $email->setSubject("CakePHP Training - Signalement d'un commentaire");
         $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('signalement_commentaire');
+        $email->setAttachments([WWW_ROOT . 'img\cake.png']);
         $email->send();
     }
 

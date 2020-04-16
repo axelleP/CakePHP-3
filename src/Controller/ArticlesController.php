@@ -193,26 +193,46 @@ class ArticlesController extends AppController
     }
 
     public function sendEmailReponse($commentaire) {
+        $configEmail = Email::config('default');
+
         $email = new Email();
         $email->setEmailFormat('html');
+        $email->setHeaders([
+            'From' => 'CakePHP Training : ' . $configEmail['from'],
+            'To' => $commentaire->user->email,
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'MIME-Version' => 1.0,
+            'Content-Type' => 'text/html; charset=UTF-8'
+        ]);
         $email->setTo($commentaire->user->email);
         $email->setSubject("CakePHP Training - Réponse à votre commentaire");
         $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('nouveau_commentaire');
+        $email->setAttachments([WWW_ROOT . 'img\cake.png']);
         $email->send();
     }
 
     public function sendEmailTest() {
         $this->autoRender = false;//pas de render
+        $configEmail = Email::config('default');
 
         $email = new Email();
         $email->setEmailFormat('html');
-        $email->setTo('be.fri@hotmail.fr');
+        $email->setHeaders([
+            'From' => 'CakePHP Training : ' . $configEmail['from'],
+            'To' => $configEmail['from'],
+//            'To' => 'test-1ilze38d7@srv1.mail-tester.com',
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'MIME-Version' => 1.0,
+            'Content-Type' => 'text/html; charset=UTF-8'
+        ]);
+        $email->setTo($configEmail['from']);
+//        $email->setTo('test-1ilze38d7@srv1.mail-tester.com');
         $email->setSubject("CakePHP Training - Réponse à votre commentaire");
-        $email->viewVars(['username' => 'username', 'idArticle' => 20, 'nomArticle' => 'nomArticle']);
         $email->viewBuilder()->setLayout('default');
-        $email->viewBuilder()->setTemplate('new_comment');
+        $email->viewBuilder()->setTemplate('test');
+        $email->setAttachments([WWW_ROOT . 'img\cake.png']);
         $email->send();
 
         echo 'OK';
