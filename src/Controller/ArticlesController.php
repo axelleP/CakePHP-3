@@ -148,6 +148,7 @@ class ArticlesController extends AppController
     public function createCommentaire($dataForm) {
         $idUser = null;
 
+        /* user */
         if (!empty($dataForm['email'])) {
             $table_user = TableRegistry::getTableLocator()->get('Users');
             //recherche de l'utilisateur en bdd
@@ -168,23 +169,45 @@ class ArticlesController extends AppController
             $idUser = $user->id;
         }
 
-        //création du commentaire en bdd si l'objet est valide (vérification par newEntity())
-        $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
+        //création du commentaire
+        $table_com = TableRegistry::getTableLocator()->get('Commentaires');
         $dataForm['user_id'] = $idUser;
         $dataForm['dateCreation'] = Time::now();
-        $commentaire = $table_commentaire->newEntity($dataForm);//affectation des valeurs + check form
+        $commentaire = $table_com->newEntity($dataForm);//affectation des valeurs + check form
 
         if (!$commentaire->errors()) {
-            $table_commentaire->save($commentaire);
+            //sauvegarde
+            $table_com->save($commentaire);
 
-            //prévient l'auteur du commentaire originel d'une réponse (s'il n'est pas désinscrit)
+            //envoie un email à l'auteur du 1er com. et les autres utilisateurs concernés
             if (!empty($commentaire->commentaire_id) && !empty($user->email)) {
-                $table_com = TableRegistry::getTableLocator()->get('Commentaires');
-                $commentaire2 = $table_com->get($commentaire->commentaire_id, ['contain' => ['Articles', 'Users']]);
+                $query_user = $table_user->find('all', [
+                    'conditions' => [
+                        'Users.id !=' => $idUser//exclue l'utilisateur qui a crée le com.
+                    ],
+                    'contain' => [
+                        'Commentaires' => [
+                            'conditions' => [
+                                'OR' => [
+                                    ['Commentaires.id =' => $commentaire->commentaire_id],
+                                    ['Commentaires.commentaire_id =' => $commentaire->commentaire_id]
+                                ]
+                            ],
+                            'Articles'
+                        ]
+                    ]
+                ]);
+                $users = $query_user->toArray();//exécute la requête
+                $article = $users[0]->commentaires[0]->article;
 
-                //on envoie pas si c'est l'auteur lui même qui a posté le com.
-                if ($commentaire2->user->id != $user->id) {
-                    $this->sendEmailReponse($commentaire2);
+                $tabIdUsers = array();
+                foreach ($users as $user2) {
+                    //si l'utilisateur n'est pas désinscrit du blog
+                    //et qu'il n'a pas déjà reçu le mail
+                    if (!empty($user2->email) && !in_array($user2->id, $tabIdUsers)) {
+                        $tabIdUsers[] = $user2->id;
+                        $this->sendEmailReponse($article, $user2);
+                    }
                 }
             }
         }
@@ -192,21 +215,21 @@ class ArticlesController extends AppController
         return $commentaire;
     }
 
-    public function sendEmailReponse($commentaire) {
+    public function sendEmailReponse($article, $user) {
         $configEmail = Email::config('default');
 
         $email = new Email();
         $email->setEmailFormat('html');
         $email->setHeaders([
             'From' => 'CakePHP Training : ' . $configEmail['from'],
-            'To' => $commentaire->user->email,
+            'To' => $user->email,
             'X-Mailer' => 'PHP/' . phpversion(),
             'MIME-Version' => 1.0,
             'Content-Type' => 'text/html; charset=UTF-8'
         ]);
-        $email->setTo($commentaire->user->email);
+        $email->setTo($user->email);
         $email->setSubject("CakePHP Training - Réponse à votre commentaire");
-        $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
+        $email->viewVars(['user' => $user, 'article' => $article]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('nouveau_commentaire');
         $email->setAttachments([WWW_ROOT . 'img\cake.png']);

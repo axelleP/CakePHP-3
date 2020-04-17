@@ -19,7 +19,7 @@
                 $txtSignalement = "($com->nbSignalement)";
             }
             ?>
-            <div class="text-right"><?= $this->Html->link("Signaler ce commentaire $txtSignalement", "/commentaires/signaler/$com->id") ?></div>
+            <div class="text-right"><?= $this->Html->link("Signaler ce commentaire $txtSignalement", ['controller' => 'commentaires', 'action' => "signaler/$com->id"], ['confirm' => "Confirmez-vous le signalement?"]) ?></div>
         </div>
     </div>
 </div>
