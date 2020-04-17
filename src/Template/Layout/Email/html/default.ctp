@@ -26,13 +26,16 @@
                     <a href="http://localhost/CakePHP/pages/show-home">CakePHP Training</a>
                 </p>
             </div>
+
+            <br/><br/>
             <?php
             //lien de désinscription
             if (isset($user->role) && $user->role != 'admin') {
             ?>
-                <br/><br/><br/>
                 <a href="http://localhost/CakePHP/users/unsubscribe/<?= $user->id ?>" style="color:white; font-size:0.9em;">Se désinscrire</a>
             <?php
+            } else {
+                echo '<br/>';
             }
             ?>
         </div>

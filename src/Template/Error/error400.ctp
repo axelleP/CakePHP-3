@@ -2,7 +2,21 @@
 use Cake\Core\Configure;
 use Cake\Error\Debugger;
 
-$this->layout = 'error';
+$this->layout = 'default';
+
+$tabCodesErrors = array(
+    400 => "La demande ne peut pas être satisfaite en raison d'une mauvaise syntaxe.",
+    403 => "Le serveur a refusé de répondre à votre demande.",
+    404 => "La page que vous avez demandé n'a pas été trouvée sur ce serveur.",
+    405 => "La méthode spécifiée dans la demande n'est pas autorisée pour la ressource spécifiée.",
+    408 => "Votre navigateur n'a pas réussi à envoyer une requête dans le temps imparti par le serveur.",
+);
+
+$codeError = $this->response->statusCode();
+$msgError = 'The requested address {0} was not found on this server.';
+if (array_key_exists($codeError, $tabCodesErrors)) {
+    $msgError = $tabCodesErrors[$codeError];
+}
 
 if (Configure::read('debug')) :
     $this->layout = 'dev_error';
@@ -31,8 +45,8 @@ endif;
 $this->end();
 endif;
 ?>
-<h2><?= h($message) ?></h2>
+<h2><?= h('Page introuvable') ?></h2>
 <p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
+    <strong><?= __d('cake', "Erreur $codeError ") ?>: </strong>
+    <?= __d('cake', $msgError, "<strong>'{$url}'</strong>") ?>
 </p>

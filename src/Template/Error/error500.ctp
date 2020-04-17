@@ -2,7 +2,19 @@
 use Cake\Core\Configure;
 use Cake\Error\Debugger;
 
-$this->layout = 'error';
+$this->layout = 'default';
+
+$tabCodesErrors = array(
+    500 => "La demande n'a pas abouti en raison d'une situation inattendue rencontrée par le serveur.",
+    502 => "Le serveur a reçu une réponse non valide alors qu'il essayait d'exécuter la requête.",
+    504 => "Le serveur en amont n'a pas envoyé de requête dans le délai imparti par le serveur.",
+);
+
+$codeError = $this->response->statusCode();
+$msgError = $message;
+if (array_key_exists($codeError, $tabCodesErrors)) {
+    $msgError = $tabCodesErrors[$codeError];
+}
 
 if (Configure::read('debug')) :
     $this->layout = 'dev_error';
@@ -36,8 +48,8 @@ if (Configure::read('debug')) :
     $this->end();
 endif;
 ?>
-<h2><?= __d('cake', 'An Internal Error Has Occurred') ?></h2>
+<h2><?= __d('cake', "Une erreur interne s'est produite") ?></h2>
 <p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= h($message) ?>
+    <strong><?= __d('cake', "Erreur $codeError ") ?>: </strong>
+    <?= h($msgError) ?>
 </p>
