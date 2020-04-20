@@ -17,10 +17,10 @@
 <html>
 <?= $this->element('General/head', ['layout' => 'admin']); ?>
 <body>
-    <div class="container">
-        <div class="mx-5 p-0 overflow-auto border shadow">
-            <div class="row">
-                <div class="col-3">
+    <div class="container-sm p-0">
+        <div class="mx-xl-5 overflow-auto border shadow">
+            <div class="row m-0">
+                <div class="col-md-3 p-0">
                     <nav class="nav flex-column navbar-dark bg-dark h-100">
                         <ul class="navbar-nav text-center m-0 pt-3">
                             <li class="nav-item"><?= $this->Html->link('Articles', '/admin-articles/show-dashboard', ['id' => 'menuArticle', 'class' => 'nav-link']) ?></li>
@@ -33,7 +33,7 @@
                     </nav>
                 </div>
 
-                <div class="col-9 pt-4">
+                <div class="col-md-9 pt-4">
                 <?php
                     echo $this->fetch('content');
                     echo $this->element('Utility/back_top');

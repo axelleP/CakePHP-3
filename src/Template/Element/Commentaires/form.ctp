@@ -13,10 +13,10 @@ if (isset($commentaire_id)) {
 }
 ?>
 <div class="row m-0">
-    <div class="col-lg-6 p-0">
+    <div class="col-6 p-0">
         <?= $this->Form->control('username', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0]); ?>
     </div>
-    <div class="col-lg-6">
+    <div class="col-6">
         <?= $this->Form->control('email', ['type' => 'email', 'id' => false, 'label' => false, 'placeholder' => 'Email', 'required' => 0]); ?>
     </div>
 </div>

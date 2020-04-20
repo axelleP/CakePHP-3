@@ -17,11 +17,11 @@
 <html>
 <?= $this->element('General/head', ['layout' => 'default']); ?>
 <body>
-    <div class="container">
-        <div class="mx-5 p-0 overflow-auto border shadow">
+    <div class="container-sm p-0">
+        <div class="mx-xl-5 overflow-auto border shadow">
             <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <div class="row">
-                    <ul class="navbar-nav col-lg-7 align-self-center">
+                    <ul class="col align-self-start navbar-nav align-self-center">
                         <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/show-home', ['class' => "nav-link"]) ?></li>
                         <li class="nav-item"><?= $this->Html->link('Articles', '/articles/show-list', ['class' => "nav-link"]) ?></li>
                     </ul>
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="pt-4 px-5">
+            <div class="pt-4 px-xs-3 px-sm-2 px-md-2 px-lg-5">
             <?php
                 echo $this->fetch('content');
                 echo $this->element('Utility/back_top');

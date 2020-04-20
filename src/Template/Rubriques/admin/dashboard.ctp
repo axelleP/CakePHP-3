@@ -19,11 +19,10 @@ if (count($rubriques) != 0) {
         <thead>
         <?php
         //titres
-        echo $this->Html->tableHeaders(
-            [
+        echo $this->Html->tableHeaders([
                 'Nom',
                 'Descriptif',
-                ['' => ['style' => 'width:7%']],
+                ''
             ],
             ['class' => 'thead-dark'],
             ['class' => 'text-center']
@@ -34,8 +33,7 @@ if (count($rubriques) != 0) {
         <tfoot>
         <?php
         //filtres
-        echo $this->Html->tableHeaders(
-            [
+        echo $this->Html->tableHeaders([
                 '<input type="text" class="form-control">',
                 '<input type="text" class="form-control">',
                 ''

@@ -16,11 +16,11 @@ if (count($commentaires) != 0) {
         <?php
         //titres
         echo $this->Html->tableHeaders([
-            ['Date création' => ['class' => 'text-center', 'style' => 'width:18.5%']],
-            'Article',
-            'Utilisateur',
-            'Commentaire',
-            ['' => ['style' => 'width:7%']],
+                ['Date création' => ['class' => 'text-center']],
+                'Article',
+                'Utilisateur',
+                'Commentaire',
+                ''
             ],
             ['class' => 'thead-dark'],
             ['class' => 'text-center']
@@ -31,8 +31,7 @@ if (count($commentaires) != 0) {
         <tfoot>
         <?php
         //filtres
-        echo $this->Html->tableHeaders(
-            [
+        echo $this->Html->tableHeaders([
                 '<input type="text" class="form-control">',
                 '<input type="text" class="form-control">',
                 '<input type="text" class="form-control">',

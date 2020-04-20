@@ -20,12 +20,12 @@ if (count($articles) != 0) {
         <?php
         //titres
         echo $this->Html->tableHeaders([
-            'Rubrique',
-            ['Date création' => ['class' => 'text-center', 'style' => 'width:18.5%']],
-            'Titre',
-            'Descriptif',
-            ['Contenu' => ['class' => 'text-center', 'style' => 'width:25%']],
-            ['' => ['style' => 'width:7%']],
+                'Rubrique',
+                ['Date création' => ['class' => 'text-center']],
+                'Titre',
+                'Descriptif',
+                ['Contenu' => ['class' => 'text-center']],
+                ''
             ],
             ['class' => 'thead-dark'],
             ['class' => 'text-center']
@@ -36,8 +36,7 @@ if (count($articles) != 0) {
         <tfoot>
         <?php
         //filtres
-        echo $this->Html->tableHeaders(
-            [
+        echo $this->Html->tableHeaders([
                 '<input type="text" class="form-control">',
                 '<input type="text" id="dateCreation" class="form-control">',
                 '<input type="text" class="form-control">',
