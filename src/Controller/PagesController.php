@@ -67,6 +67,8 @@ class PagesController extends AppController
         try {
             if ($page == 'show-home') {
                 $this->render('home');
+            } elseif($page == 'show-legal-mentions') {
+                $this->render('legal-mention');
             } else {
                 $this->render(implode('/', $path));
             }

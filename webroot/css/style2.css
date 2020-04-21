@@ -56,6 +56,11 @@
   flex-shrink: 0;
 }
 
+#sticky-footer a{
+  color: rgba(255,255,255,.5);
+  text-decoration: none;
+}
+
 /* Logo réseau social */
 .logo_reseauSocial {
     background-repeat: no-repeat;
@@ -104,3 +109,13 @@ button.close2:hover, button.close2:focus  {
 button.close2:hover  {
     color: #DCDCDC;
 }
+
+/* autres */
+fieldset legend {
+    border-bottom: 2px solid grey;
+}
+
+/* exemple */
+/*.text-responsive {
+    font-size: calc(-16% + 1vw + 1vh);
+}*/

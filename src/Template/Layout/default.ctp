@@ -18,7 +18,7 @@
 <?= $this->element('General/head', ['layout' => 'default']); ?>
 <body>
     <div class="container-sm p-0">
-        <div class="mx-xl-5 overflow-auto border shadow">
+        <div class="mx-xl-5 border shadow">
             <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <div class="row">
                     <ul class="col align-self-start navbar-nav align-self-center">
@@ -58,12 +58,11 @@
                 </div>
             </div>
 
-            <div class="pt-4 px-xs-3 px-sm-2 px-md-2 px-lg-5">
-            <?php
-                echo $this->fetch('content');
-                echo $this->element('Utility/back_top');
-            ?>
+            <div class="min-vh-100 pt-4 px-xs-3 px-sm-2 px-md-2 px-lg-5">
+            <?= $this->fetch('content');?>
             </div>
+
+            <div class="col"><?= $this->element('Utility/back_top'); ?></div>
 
             <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
                 <div class="text-center">
@@ -72,11 +71,13 @@
                         if (!$this->Session->read('Auth.User')) {
                         ?>
                             <a id="lienConnexion">Administration</a>
+                            -
                         <?php
+                            echo $this->Html->link('Mentions légales', '/pages/show-legal-mentions');
                         } else {
-                            echo $this->Html->link('Administration', '/admin-articles/show-dashboard', ['style' => 'color: rgba(255,255,255,.5);']);
+                            echo $this->Html->link('Administration', '/admin-articles/show-dashboard');
                             echo ' - ';
-                            echo $this->Html->link('Se déconnecter', '/users/logout', ['style' => 'color: rgba(255,255,255,.5);']);
+                            echo $this->Html->link('Se déconnecter', '/users/logout');
                         }
                         ?>
                         <br/>Copyright &copy; CakePHP Training

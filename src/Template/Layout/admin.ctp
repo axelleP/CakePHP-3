@@ -18,7 +18,7 @@
 <?= $this->element('General/head', ['layout' => 'admin']); ?>
 <body>
     <div class="container-sm p-0">
-        <div class="mx-xl-5 overflow-auto border shadow">
+        <div class="mx-xl-5 border shadow">
             <div class="row m-0">
                 <div class="col-md-3 p-0">
                     <nav class="nav flex-column navbar-dark bg-dark h-100">
@@ -33,7 +33,7 @@
                     </nav>
                 </div>
 
-                <div class="col-md-9 pt-4">
+                <div class="min-vh-100 col-md-9 pt-4">
                 <?php
                     echo $this->fetch('content');
                     echo $this->element('Utility/back_top');
@@ -43,7 +43,10 @@
 
             <footer id="sticky-footer" class="py-4 bg-dark text-white-50" style="border-top: solid 0.5px black;">
                 <div class="text-center">
-                    <small>Copyright &copy; CakePHP Training</small>
+                    <small>
+                        <?= $this->Html->link('Mentions légales', '/pages/show-legal-mentions'); ?>
+                        <br/>Copyright &copy; CakePHP Training
+                    </small>
                 </div>
             </footer>
         </div>
