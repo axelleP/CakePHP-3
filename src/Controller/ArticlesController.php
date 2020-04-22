@@ -121,8 +121,8 @@ class ArticlesController extends AppController
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
         $query_commentaires = $table_commentaire->find('all', [
             'conditions' => ['Commentaires.article_id =' => $id, 'Commentaires.commentaire_id IS NULL'],
-            'contain' => ['Users', 'Commentaires2' => ['sort' => ['Commentaires2.dateCreation' => 'DESC']], 'Commentaires2.Users'],
-            'order' => 'Commentaires.dateCreation DESC'
+            'contain' => ['Users', 'Commentaires2' => ['sort' => ['Commentaires2.dateCreation' => 'ASC']], 'Commentaires2.Users'],
+            'order' => 'Commentaires.dateCreation ASC'
         ]);
         $query_commentaires->toArray();//exécute la requête
         $commentaires = $this->paginate($query_commentaires);

@@ -48,7 +48,13 @@ if (count($rubriques) != 0) {
         foreach ($rubriques as $rubrique) {
             echo $this->Html->tableCells([
                 $rubrique->nom,
-                $rubrique->descriptif,
+                $this->Text->truncate(
+                    $rubrique->descriptif,
+                    30,//longueur maximal
+                    ['ellipsis' => ' ...',//texte de fin si dépassement
+                    'exact' => true,//ne coupe pas un mot
+                    'html' => true]//ne coupe pas une balise
+                ),
                 array(
                     //modifier
                     $this->Html->link(

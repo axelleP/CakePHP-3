@@ -14,7 +14,7 @@
  */
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <?= $this->element('General/head', ['layout' => 'default']); ?>
 <body>
     <div class="container-sm p-0">
@@ -45,11 +45,11 @@
                     </div>
                     <div class="p-4 border">
                         <?php
-                            echo $this->Form->create($user, ['url' => ['action' => '#'], 'templates' => 'form-template', 'id' => 'formConnexion']);
+                            echo $this->Form->create($user, ['url' => ['controller' => 'Users', 'action' => 'login'], 'templates' => 'form-template', 'id' => 'formConnexion']);
                             echo '<div id="all_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
-                            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Login', 'required' => 0]);
+                            echo $this->Form->control('username', ['label' => false, 'placeholder' => 'Login', 'required' => 1]);
                             echo '<div id="username_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
-                            echo $this->Form->control('password', ['label' => false, 'placeholder' => 'Mot de passe', 'required' => 0]);
+                            echo $this->Form->control('password', ['label' => false, 'placeholder' => 'Mot de passe', 'required' => 1]);
                             echo '<div id="password_errors" class="error-message" style="color:red; display:none; text-align:left;"></div>';
                             echo $this->Form->button('Se connecter', ['onclick' => 'js:submitFormConnexion();return false;']);
                             echo $this->Form->end();

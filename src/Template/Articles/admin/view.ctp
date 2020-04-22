@@ -18,7 +18,7 @@
     </tr>
     <tr>
         <th class="table-dark" colspan="1">Contenu</th>
-        <td colspan="3"><?= nl2br($article->contenu); ?></td>
+        <td colspan="3"><?= $article->contenu; ?></td>
     </tr>
   </tbody>
 </table>

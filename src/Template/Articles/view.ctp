@@ -21,7 +21,7 @@ echo $this->element('Utility/breadcrumb');
 <div class="col">
     <h1 class="text-center mb-5"><?= ucfirst($article->titre); ?></h1>
 
-    <div class="mb-5"><?= nl2br($article->contenu); ?></div>
+    <div class="mb-5 text-break"><?= $article->contenu; ?></div>
 
     SYSTEME DE VOTE (bonus : saisie direct d'un com. après avoir voté en popup)
     <br/><br/>

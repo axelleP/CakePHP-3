@@ -14,14 +14,14 @@ if (isset($commentaire_id)) {
 ?>
 <div class="row m-0">
     <div class="col-6 p-0">
-        <?= $this->Form->control('username', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0]); ?>
+        <?= $this->Form->control('username', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 1]); ?>
     </div>
     <div class="col-6">
-        <?= $this->Form->control('email', ['type' => 'email', 'id' => false, 'label' => false, 'placeholder' => 'Email', 'required' => 0]); ?>
+        <?= $this->Form->control('email', ['type' => 'email', 'id' => false, 'label' => false, 'placeholder' => 'Email', 'required' => 1]); ?>
     </div>
 </div>
 <?php
-echo $this->Form->control('commentaire', ['type' => 'textarea', 'id' => false, 'label' => false, 'placeholder' => 'Commentaire', 'required' => 0]);
+echo $this->Form->control('commentaire', ['type' => 'textarea', 'id' => false, 'label' => false, 'placeholder' => 'Commentaire', 'required' => 1]);
 if (isset($commentaire_id)) {
     echo $this->Form->button('Répondre');
 } else {

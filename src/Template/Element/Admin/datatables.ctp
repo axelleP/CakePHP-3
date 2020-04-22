@@ -4,11 +4,12 @@
             "columnDefs": [
                 { "orderable": false, "targets": <?= $indexColonneAction ?> }//désactive le tri sur la 3eme colonne
             ],
-            "lengthMenu": [[1, 10, 25, -1], [1, 10, 25, "Tous"]],//nb de résultats par page
+            "lengthMenu": [[2, 10, 25, -1], [2, 10, 25, "Tous"]],//nb de résultats par page
             "language": {
                 "lengthMenu": "Nombre de résultats par page : &nbsp; _MENU_",
                 "info": "Affichage de _START_ à _END_ sur _TOTAL_ résultat(s)",
-                "infoEmpty": "Aucun résultat",
+                "infoEmpty": "",
+                "zeroRecords": "Aucun résultat trouvé",
                 "infoFiltered": "",
                 "aaSorting": [],
                 "paginate": {
