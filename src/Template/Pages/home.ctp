@@ -69,7 +69,7 @@ echo $this->element('Utility/breadcrumb');
 
     <div class="table-responsive">
         <table class="mb-5 table table-hover text-nowrap">
-            <caption>Légende tableau</caption>
+            <caption>Agnitus vero</caption>
             <thead>
             <?php
             echo $this->Html->tableHeaders(

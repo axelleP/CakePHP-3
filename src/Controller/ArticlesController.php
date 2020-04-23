@@ -12,7 +12,7 @@ class ArticlesController extends AppController
     public $paginate = [
         'Articles' => [
             'fields' => ['Articles.id'],
-            'limit' => 1,
+            'limit' => 2,
             'order' => ['Articles.dateCreation' => 'desc']
         ],
         'Commentaires' => [

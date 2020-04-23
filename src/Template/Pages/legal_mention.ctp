@@ -8,11 +8,10 @@ echo $this->element('Utility/breadcrumb');
 
     <fieldset>
         <legend>Hébergement</legend>
-        Site hébergé par ...<br/>
-        Adresse : ...<br/>
-        Téléphone : ...<br/>
-        Mail : ...<br/>
-        Site internet : ...
+        Site hébergé par OVH<br/>
+        Adresse : 2 rue Kellermann - 59100 Roubaix - France<br/>
+        Téléphone : 1007<br/>
+        Site internet : <?= $this->Html->link('https://www.ovh.com/', 'https://www.ovh.com/', ['target' => '_blank']) ?>
     </fieldset>
 
     <br/>

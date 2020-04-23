@@ -78,6 +78,8 @@
                             echo $this->Html->link('Administration', '/admin-articles/show-dashboard');
                             echo ' - ';
                             echo $this->Html->link('Se déconnecter', '/users/logout');
+                            echo ' - ';
+                            echo $this->Html->link('Mentions légales', '/pages/show-legal-mentions');
                         }
                         ?>
                         <br/>Copyright &copy; CakePHP Training
