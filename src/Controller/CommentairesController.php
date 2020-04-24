@@ -45,7 +45,7 @@ class CommentairesController extends AppController
         $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('signalement_commentaire');
-        $email->setAttachments([WWW_ROOT . 'img\cake.png']);
+        $email->setAttachments([WWW_ROOT . 'img/cake.png']);
         $email->send();
     }
 

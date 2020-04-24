@@ -232,7 +232,7 @@ class ArticlesController extends AppController
         $email->viewVars(['user' => $user, 'article' => $article]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('nouveau_commentaire');
-        $email->setAttachments([WWW_ROOT . 'img\cake.png']);
+        $email->setAttachments([WWW_ROOT . 'img/cake.png']);
         $email->send();
     }
 
@@ -255,7 +255,7 @@ class ArticlesController extends AppController
         $email->setSubject("CakePHP Training - Réponse à votre commentaire");
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('test');
-        $email->setAttachments([WWW_ROOT . 'img\cake.png']);
+        $email->setAttachments([WWW_ROOT . 'img/cake.png']);
         $email->send();
 
         echo 'OK';
