@@ -19,9 +19,13 @@
 <body>
     <div class="container-sm p-0">
         <div class="mx-xl-5 border shadow">
-            <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
                 <div class="row">
-                    <ul class="col align-self-start navbar-nav align-self-center">
+                    <button class="ml-3 navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <ul id="navbarSupportedContent" class="navbar-nav navbar-collapse collapse align-self-center">
                         <li class="nav-item"><?= $this->Html->link('Accueil', '/pages/show-home', ['class' => "nav-link"]) ?></li>
                         <li class="nav-item"><?= $this->Html->link('Articles', '/articles/show-list', ['class' => "nav-link"]) ?></li>
                     </ul>

@@ -9,6 +9,7 @@
             'base.css'
             , 'style.css'
             , 'style2.css'
+            , 'responsive.css'
             , 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'
         ];
 

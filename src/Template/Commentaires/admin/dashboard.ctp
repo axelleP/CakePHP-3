@@ -60,14 +60,14 @@ if (count($commentaires) != 0) {
                 array(
                     //visualiser
                     $this->Html->link(
-                        $this->Html->image('btn-see-20x20.svg', ['alt' => 'Bouton visualiser', 'title' => 'Regarder', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-see-20x20.svg', ['alt' => 'Bouton visualiser', 'title' => 'Regarder', 'class' => 'commonBtn col-10 col-sm-8 col-md-7 col-lg-5']),
                         ['controller' => 'adminCommentaires', 'action' => "showView/$commentaire->id"],
                         ['escape' => false]
                     )
                     . '<br/>'
                     //supprimer
                     . $this->Html->link(
-                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn col-10 col-sm-8 col-md-7 col-lg-5']),
                         ['controller' => 'adminCommentaires', 'action' => "delete/$commentaire->id"],
                         ['escape' => false, 'confirm' => 'Confirmez-vous la suppression?']
                     ),

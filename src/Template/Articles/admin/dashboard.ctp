@@ -67,21 +67,21 @@ if (count($articles) != 0) {
                 array(
                     //visualiser
                     $this->Html->link(
-                        $this->Html->image('btn-see-20x20.svg', ['alt' => 'Bouton visualiser', 'title' => 'Regarder', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-see-20x20.svg', ['alt' => 'Bouton visualiser', 'title' => 'Regarder', 'class' => 'commonBtn col-12 col-sm-8 col-lg-6']),
                         ['controller' => 'adminArticles', 'action' => "showView/$article->id"],
                         ['escape' => false]
                     )
                     . '<br/>'
                     //modifier
                     . $this->Html->link(
-                        $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn col-12 col-sm-8 col-lg-6']),
                         ['controller' => 'adminArticles', 'action' => "showForm/$article->id"],
                         ['escape' => false]
                     )
                     . '<br/>'
                     //supprimer
                     . $this->Html->link(
-                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn col-12 col-sm-8 col-lg-6']),
                         ['controller' => 'adminArticles', 'action' => "delete/$article->id"],
                         ['escape' => false, 'confirm' => "Confirmez-vous la suppression de l'article et de ses commentaires utilisateur?"]
                     ),

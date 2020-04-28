@@ -27,14 +27,11 @@ echo $this->element('Utility/breadcrumb');
     <div class="mb-4 text-break"><?= $article->contenu; ?></div>
 
     <div class="row m-0">
-        <a target="_blank" title="Twitter" href="http://twitter.com/share?url=<?= $urlCourante; ?>&amp;text=<?= $article->titre; ?>">
-            <?= $this->Html->image('logo/logo-twitter.jpg', array('alt' => 'CakePHP', 'class' => 'logo_reseauSocial')); ?>
+        <a target="_blank" title="Twitter" href="http://twitter.com/share?url=<?= $urlCourante; ?>&amp;text=<?= $article->titre; ?>" class="px-1 col-1">
+            <?= $this->Html->image('logo/logo-twitter.jpg', ['alt' => 'CakePHP', 'class' => 'logo_reseauSocial']); ?>
         </a>
-        <a target="_blank" title="Facebook" href="http://www.facebook.com/sharer.php?u=<?= $urlCourante; ?>&amp;t=<?= $article->titre; ?>">
-            <?= $this->Html->image('logo/logo-facebook.png', array('alt' => 'CakePHP', 'class' => 'logo_reseauSocial')); ?>
-        </a>
-        <a target="_blank" title="Google Plus" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<?= $urlCourante; ?>">
-            <?= $this->Html->image('logo/logo-google-plus.png', array('alt' => 'CakePHP', 'class' => 'logo_reseauSocial')); ?>
+        <a target="_blank" title="Facebook" href="http://www.facebook.com/sharer.php?u=<?= $urlCourante; ?>&amp;t=<?= $article->titre; ?>" class="px-1 col-1">
+            <?= $this->Html->image('logo/logo-facebook.png', ['alt' => 'CakePHP', 'class' => 'logo_reseauSocial']); ?>
         </a>
     </div>
 

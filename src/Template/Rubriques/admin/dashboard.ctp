@@ -58,14 +58,14 @@ if (count($rubriques) != 0) {
                 array(
                     //modifier
                     $this->Html->link(
-                        $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn col-6 col-xs-4 col-sm-4 col-md-4 col-lg-3']),
                         ['controller' => 'adminRubriques', 'action' => "showForm/$rubrique->id"],
                         ['escape' => false]
                     )
                     . '<br/>'
                     //supprimer
                     . $this->Html->link(
-                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn']),
+                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn col-6 col-xs-4 col-sm-4 col-md-4 col-lg-3']),
                         ['controller' => 'adminRubriques', 'action' => "delete/$rubrique->id"],
                         ['escape' => false, 'confirm' => 'Confirmez-vous la suppression?']
                     ),

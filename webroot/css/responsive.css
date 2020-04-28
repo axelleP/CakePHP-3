@@ -1,0 +1,6 @@
+/* media pour les écran de 0 à 576px */
+@media screen and (max-width:576px) {
+    html,body{font-size: 3vw;}
+    
+    #frameConnection {max-width: 80%;}
+}
