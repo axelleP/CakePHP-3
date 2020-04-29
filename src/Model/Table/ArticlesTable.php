@@ -13,7 +13,7 @@ class ArticlesTable extends Table
             'dependent' => true//suppression des com. liés à l'article quand l'art. est supprimé
             , 'cascadeCallbacks' => true//appel des fonctions "afterDelete" : exemple le dependent dans CommentairesTable
         ]);
-        $this->belongsTo('Rubriques');
+        $this->belongsTo('Rubriques', ['joinType' => 'INNER']);
     }
 
     public function validationDefault(Validator $validator)

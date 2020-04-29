@@ -12,12 +12,12 @@ class ArticlesController extends AppController
     public $paginate = [
         'Articles' => [
             'fields' => ['Articles.id'],
-            'limit' => 2,
+            'limit' => 6,
             'order' => ['Articles.dateCreation' => 'desc']
         ],
         'Commentaires' => [
             'fields' => ['Commentaires.id'],
-            'limit' => 3,
+            'limit' => 10,
             'order' => ['Commentaires.dateCreation' => 'desc']
         ]
     ];
@@ -87,7 +87,8 @@ class ArticlesController extends AppController
         $tabObjetsCom[$id] = new Commentaire();//objet commentaire du form. com. de l'article
 
         $dataFormCom = $this->request->getData();
-        if (!empty($dataFormCom)) {//soumission du formulaire commentaire
+        //soumission du formulaire commentaire
+        if (!empty($dataFormCom)) {
             $nomObjetCom = (isset($dataFormCom['commentaire_id'])) ? $id . '_' . $dataFormCom['commentaire_id'] : $id;
             $tabObjetsCom[$nomObjetCom] = $this->createCommentaire($dataFormCom);
 
@@ -100,33 +101,42 @@ class ArticlesController extends AppController
         }
 
         //article précédent
-        $query_articlePrecedent = $this->Articles->find('all', [
-            'conditions' => ['id <' => $id],
-            'order' => 'id DESC',
-            'limit' => 1
-        ]);
+        $query_articlePrecedent = $this->Articles
+        ->find()
+        ->select('id')
+        ->where(['id <' => $id])
+        ->order('id DESC')
+        ->limit(1);
         $articlePrecedent = $query_articlePrecedent->first();
         $idArticlePrecedent = (!empty($articlePrecedent)) ? $articlePrecedent->id : null;
 
         //article suivant
-        $query_articleSuivant = $this->Articles->find('all', [
-            'conditions' => ['id >' => $id],
-            'order' => 'id DESC',
-            'limit' => 1
-        ]);
+        $query_articleSuivant = $this->Articles
+        ->find()
+        ->select('id')
+        ->where(['id >' => $id])
+        ->order('id ASC')
+        ->limit(1);
         $articleSuivant = $query_articleSuivant->first();
         $idArticleSuivant = (!empty($articleSuivant)) ? $articleSuivant->id : null;
 
         //commentaires
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');
-        $query_commentaires = $table_commentaire->find('all', [
-            'conditions' => ['Commentaires.article_id =' => $id, 'Commentaires.commentaire_id IS NULL'],
-            'contain' => ['Users', 'Commentaires2' => ['sort' => ['Commentaires2.dateCreation' => 'ASC']], 'Commentaires2.Users'],
-            'order' => 'Commentaires.dateCreation ASC'
-        ]);
+        $query_commentaires = $table_commentaire
+        ->find()
+        ->where("Commentaires.article_id = $id")
+        ->andWhere('Commentaires.commentaire_id IS NULL')
+        ->contain('Commentaires2', function ($c2) {
+            return $c2->order('dateCreation ASC')
+            ->contain('Users');
+        })
+        ->contain(['Users'])
+        ->order('Commentaires.dateCreation ASC');
         $query_commentaires->toArray();//exécute la requête
         $commentaires = $this->paginate($query_commentaires);
-        foreach ($commentaires as $com) {//entité du form. commentaire de chaque commentaire de l'article
+
+        //crée un objet com. pour chq formulaire de chq com. existant
+        foreach ($commentaires as $com) {
             $nomObjetCom = $com->article_id . '_' . $com->id;
             if (!isset($tabObjetsCom[$nomObjetCom])) {
                 $tabObjetsCom[$nomObjetCom] = new Commentaire();
@@ -181,23 +191,23 @@ class ArticlesController extends AppController
 
             //envoie un email à l'auteur du 1er com. et les autres utilisateurs concernés
             if (!empty($commentaire->commentaire_id) && !empty($user->email)) {
-                $query_user = $table_user->find('all', [
-                    'conditions' => [
-                        'Users.id !=' => $idUser//exclue l'utilisateur qui a crée le com.
-                    ],
-                    'contain' => [
-                        'Commentaires' => [
-                            'conditions' => [
-                                'OR' => [
-                                    ['Commentaires.id =' => $commentaire->commentaire_id],
-                                    ['Commentaires.commentaire_id =' => $commentaire->commentaire_id]
-                                ]
-                            ],
-                            'Articles'
+                $comId = $commentaire->commentaire_id;
+
+                $users = $table_user
+                ->find()
+                ->where(['Users.id !=' => $idUser])//exclue l'utilisateur qui a crée le com.
+                ->innerJoinWith('Commentaires', function ($c) use($comId) {
+                    return $c->where([
+                        'OR' => [
+                            ['Commentaires.id' => $comId],
+                            ['Commentaires.commentaire_id' => $comId]
                         ]
-                    ]
-                ]);
-                $users = $query_user->toArray();//exécute la requête
+                    ])
+                    ->contain('Articles');
+                })
+                ->contain('Commentaires')
+                ->toArray();
+
                 $article = $users[0]->commentaires[0]->article;
 
                 $tabIdUsers = array();

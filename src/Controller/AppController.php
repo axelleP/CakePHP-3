@@ -69,7 +69,7 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['showList', 'showView', 'signaler']);
+        $this->Auth->allow(['showList', 'showView', 'signaler', 'unsubscribe']);
     }
 
 }
