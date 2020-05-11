@@ -24,20 +24,13 @@ echo $this->Form->end();
 
 //calendrier
 echo $this->element('Admin/calendar', ['id' => 'dateCreation']);
+
+//ckeditor
+echo $this->element('Admin/ckeditor', ['name' => 'contenu']);
 ?>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        //éditeur de texte
-        CKEDITOR.replace('contenu',{
-            customConfig: '/ckeditor_settings/config.js'
-        });
-        CKEDITOR.editorConfig = function( config ) {
-            config.removeButtons = 'Cut,Copy,Paste,Subscript,Superscript,About';
-            config.language = 'fr';
-            config.enterMode = CKEDITOR.ENTER_BR;
-        };
-
         $('#menuArticle').attr('class', 'nav-link menuCourant');
     });
 </script>

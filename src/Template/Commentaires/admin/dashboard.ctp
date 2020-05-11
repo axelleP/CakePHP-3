@@ -65,11 +65,11 @@ if (count($commentaires) != 0) {
                         ['escape' => false]
                     )
                     . '<br/>'
-                    //supprimer
+                    //modifier
                     . $this->Html->link(
-                        $this->Html->image('btn-delete-20x20.svg', ['alt' => 'Bouton suppression', 'title' => 'Supprimer', 'class' => 'commonBtn col-10 col-sm-8 col-md-7 col-lg-5']),
-                        ['controller' => 'adminCommentaires', 'action' => "delete/$commentaire->id"],
-                        ['escape' => false, 'confirm' => 'Confirmez-vous la suppression?']
+                        $this->Html->image('btn-edit-20x20.svg', ['alt' => 'Bouton édition', 'title' => 'Modifier', 'class' => 'commonBtn col-10 col-sm-8 col-md-7 col-lg-5']),
+                        ['controller' => 'adminCommentaires', 'action' => "showForm/$commentaire->id"],
+                        ['escape' => false]
                     ),
                     ['class' => 'text-center']//centre la colonne
                 )

@@ -34,6 +34,32 @@ class AdminCommentairesController extends AppController
         $this->render('/Commentaires/admin/view');
     }
 
+    public function showForm($id) {
+        if (isset($_POST['btnCancel'])) {
+            return $this->redirect(['controller' => 'AdminCommentaires', 'action' => 'showDashboard']);
+        }
+
+        $table_com = TableRegistry::getTableLocator()->get('Commentaires');
+        $commentaire = $table_com->get($id, ['contain' => ['Users', 'Articles']]);
+
+        //soumission formulaire
+        $dataForm = $this->request->getData();
+        if (!empty($dataForm)) {
+            //validation et assignation des données
+            $table_com->patchEntity($commentaire, $dataForm);
+
+            if (!$commentaire->errors()) {
+                $table_com->save($commentaire);
+                $this->Flash->success("Le commentaire a bien été modifié.", ['key' => 'success']);
+                return $this->redirect(['controller' => 'AdminCommentaires', 'action' => 'showDashboard']);
+            }
+        }
+
+        $this->set(['commentaire' => $commentaire]);
+
+        $this->render('/Commentaires/admin/form');
+    }
+
     public function delete($id)
     {
         $table_commentaire = TableRegistry::getTableLocator()->get('Commentaires');

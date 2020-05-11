@@ -66,7 +66,12 @@ class AdminArticlesController extends AppController
 
             if (!$article->errors()) {
                 $table_article->save($article);
-                $this->Flash->success("L'article \"$article->titre\" a bien été crée.", ['key' => 'success']);
+
+                if (empty($id)) {
+                    $this->Flash->success("L'article \"$article->titre\" a bien été crée.", ['key' => 'success']);
+                } else {
+                    $this->Flash->success("L'article \"$article->titre\" a bien été modifié.", ['key' => 'success']);
+                }
 
                 return $this->redirect(['controller' => 'AdminArticles', 'action' => 'showDashboard']);
             }

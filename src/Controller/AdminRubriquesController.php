@@ -46,7 +46,12 @@ class AdminRubriquesController extends AppController
 
             if (!$rubrique->errors()) {
                 $table_rubrique->save($rubrique);
-                $this->Flash->success("La rubrique \"$rubrique->nom\" a bien été créée.", ['key' => 'success']);
+
+                if (empty($id)) {
+                    $this->Flash->success("La rubrique \"$rubrique->nom\" a bien été créée.", ['key' => 'success']);
+                } else {
+                    $this->Flash->success("La rubrique \"$rubrique->nom\" a bien été modifiée.", ['key' => 'success']);
+                }
 
                 return $this->redirect(['controller' => 'AdminRubriques', 'action' => 'showDashboard']);
             }
