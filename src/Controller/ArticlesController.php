@@ -192,20 +192,24 @@ class ArticlesController extends AppController
             //envoie un email à l'auteur du 1er com. et les autres utilisateurs concernés
             if (!empty($commentaire->commentaire_id) && !empty($user->email)) {
                 $comId = $commentaire->commentaire_id;
+                $articleId = $dataForm['article_id'];
 
                 $users = $table_user
                 ->find()
                 ->where(['Users.id !=' => $idUser])//exclue l'utilisateur qui a crée le com.
-                ->innerJoinWith('Commentaires', function ($c) use($comId) {
-                    return $c->where([
+                //innerJoinWith : permet de rajouter des conditions dans le join sans charger les champs
+                //rque : les champs se chargent quand même ici je ne sais pas pourquoi
+                ->innerJoinWith('Commentaires', function ($c) use($comId, $articleId) {
+                    return $c
+                    ->where([
                         'OR' => [
                             ['Commentaires.id' => $comId],
                             ['Commentaires.commentaire_id' => $comId]
                         ]
                     ])
-                    ->contain('Articles');
+                    ->contain(['Articles' => ['conditions' => ['Articles.id = ' . $articleId]]]);
                 })
-                ->contain('Commentaires')
+//                ->contain('Commentaires') //charge les champs de la table (pas besoin de contain apparement dans ce cas-ci)
                 ->toArray();
 
                 $article = $users[0]->commentaires[0]->article;
