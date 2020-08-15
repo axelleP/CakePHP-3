@@ -2,9 +2,9 @@
 <?php
 echo $this->Form->create($rubrique, ['url' => ['action' => "show-form"], 'templates' => 'form-template']);
 //nom
-echo $this->Form->control('nom', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 1]);
+echo $this->Form->control('nom', ['id' => false, 'label' => false, 'placeholder' => 'Nom', 'required' => 0]);
 //descriptif
-echo $this->Form->control('descriptif', ['id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 1]);
+echo $this->Form->control('descriptif', ['id' => false, 'label' => false, 'placeholder' => 'Descriptif', 'required' => 0]);
 //boutons
 echo '<button type="submit" name="btnCancel" class="btn btn-secondary">Annuler</button>';
 $this->Form->unlockField('btnCancel');

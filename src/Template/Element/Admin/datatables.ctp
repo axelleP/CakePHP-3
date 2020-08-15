@@ -1,8 +1,10 @@
 <script type="text/javascript">
     $(document).ready(function($) {
+        $.fn.dataTable.moment('D/M/YYYY HH:mm');//permet de bien trier les colonnes de type date (rque : on peut définir un 2eme format date si besoin)
+
         var table = $('.tableAdmin').DataTable({
             "columnDefs": [
-                { "orderable": false, "targets": <?= $indexColonneAction ?> }//désactive le tri sur la 3eme colonne
+                { "orderable": false, "targets": <?= $indexColonneAction ?> }//désactive le tri sur la colonne des actions
             ],
             "lengthMenu": [[2, 10, 25, -1], [2, 10, 25, "Tous"]],//nb de résultats par page
             "language": {

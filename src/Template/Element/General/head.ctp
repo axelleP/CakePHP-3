@@ -40,6 +40,7 @@
             //datatables
             $tabScript[] = 'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js';
             $tabScript[] = 'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js';
+            $tabScript[] = 'https://cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js';//pour gérer le trie des colonnes de type date
         }
 
         echo $this->Html->script($tabScript);
