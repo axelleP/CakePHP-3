@@ -48,7 +48,7 @@ class AdminCommentairesController extends AppController
             //validation et assignation des données
             $table_com->patchEntity($commentaire, $dataForm);
 
-            if (!$commentaire->errors()) {
+            if (!$commentaire->getErrors()) {
                 $table_com->save($commentaire);
                 $this->Flash->success("Le commentaire a bien été modifié.", ['key' => 'success']);
                 return $this->redirect(['controller' => 'AdminCommentaires', 'action' => 'showDashboard']);

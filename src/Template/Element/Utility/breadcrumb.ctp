@@ -1,5 +1,5 @@
 <?php
-$this->Breadcrumbs->templates([
+$this->Breadcrumbs->setTemplates([
     'wrapper' => ''
     . '<nav aria-label="breadcrumb" class="row d-flex mb-3">'
     . '<ol class="breadcrumb"{{attrs}}>{{content}}</ol>'

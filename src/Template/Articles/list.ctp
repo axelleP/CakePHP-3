@@ -7,7 +7,7 @@ echo $this->element('Utility/breadcrumb');
     <?php
     //information sur la recherche
     if ($articles->count() != 0) {
-        echo '<div style="font-size:1.1em; text-align:center;">' . $this->Paginator->total('Articles') . ' article(s) trouvé(s)';
+        echo '<div style="font-size:1.1em; text-align:center;">' . $articles->count() . ' article(s) affiché(s) sur ' . $nbResultat;
 
         //si l'user a fait une recherche
         if (isset($tabConditions['keyword']) && !empty($tabConditions['keyword'])) {

@@ -44,7 +44,7 @@ class AdminRubriquesController extends AppController
             //validation et assignation des données
             $table_rubrique->patchEntity($rubrique, $dataForm);
 
-            if (!$rubrique->errors()) {
+            if (!$rubrique->getErrors()) {
                 $table_rubrique->save($rubrique);
 
                 if (empty($id)) {

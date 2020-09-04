@@ -64,7 +64,7 @@ class AdminArticlesController extends AppController
             //validation et assignation des données
             $table_article->patchEntity($article, $dataForm);
 
-            if (!$article->errors()) {
+            if (!$article->getErrors()) {
                 $table_article->save($article);
 
                 if (empty($id)) {

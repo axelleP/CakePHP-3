@@ -56,7 +56,8 @@ class ArticlesController extends AppController
         }
         $tabParamsSQL['conditions'] = $tabConditionsSQL;
         $query_article = $this->Articles->find('all', $tabParamsSQL);
-        $query_article->toArray();//exécute la requête
+        $resultat = $query_article->toArray();//exécute la requête
+        $nbResultat = count($resultat);
         $articles = $this->paginate($query_article);
 
         //rubriques
@@ -70,6 +71,7 @@ class ArticlesController extends AppController
 
         $this->set([
             'articles' => $articles,
+            'nbResultat' => $nbResultat,
             'listeRubriques' => $listeRubriques,
             'rubrique_id' => $rubrique_id,
             'tabConditions' => $tabConditions
@@ -93,7 +95,7 @@ class ArticlesController extends AppController
             $tabObjetsCom[$nomObjetCom] = $this->createCommentaire($dataFormCom);
 
             //nouvel objet + remet le formulaire à vide
-            if (!$tabObjetsCom[$nomObjetCom]->errors()) {
+            if (!$tabObjetsCom[$nomObjetCom]->getErrors()) {
                 $hash = $tabObjetsCom[$nomObjetCom]->article_id . '_' . $tabObjetsCom[$nomObjetCom]->id;
                 $tabObjetsCom[$nomObjetCom] = new Commentaire();
                 $this->request->data = null;
@@ -185,7 +187,7 @@ class ArticlesController extends AppController
         $dataForm['dateCreation'] = Time::now();
         $commentaire = $table_com->newEntity($dataForm);//affectation des valeurs + check form
 
-        if (!$commentaire->errors()) {
+        if (!$commentaire->getErrors()) {
             //sauvegarde
             $table_com->save($commentaire);
 
@@ -212,15 +214,18 @@ class ArticlesController extends AppController
 //                ->contain('Commentaires') //charge les champs de la table (pas besoin de contain apparement dans ce cas-ci)
                 ->toArray();
 
-                $article = $users[0]->commentaires[0]->article;
+                //s'il y a au moins un utilisateur à qui il faut envoyer un email
+                if (!empty($users)) {
+                    $article = $users[0]->commentaires[0]->article;
 
-                $tabIdUsers = array();
-                foreach ($users as $user2) {
-                    //si l'utilisateur n'est pas désinscrit du blog
-                    //et qu'il n'a pas déjà reçu le mail
-                    if (!empty($user2->email) && !in_array($user2->id, $tabIdUsers)) {
-                        $tabIdUsers[] = $user2->id;
-                        $this->sendEmailReponse($article, $user2);
+                    $tabIdUsers = array();
+                    foreach ($users as $user2) {
+                        //si l'utilisateur n'est pas désinscrit du blog
+                        //et qu'il n'a pas déjà reçu le mail
+                        if (!empty($user2->email) && !in_array($user2->id, $tabIdUsers)) {
+                            $tabIdUsers[] = $user2->id;
+                            $this->sendEmailReponse($article, $user2);
+                        }
                     }
                 }
             }

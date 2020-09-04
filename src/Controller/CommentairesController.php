@@ -42,7 +42,7 @@ class CommentairesController extends AppController
         ]);
         $email->setTo($configEmail['from']);
         $email->setSubject("CakePHP Training - Signalement d'un commentaire");
-        $email->viewVars(['user' => $commentaire->user, 'commentaire' => $commentaire]);
+        $email->viewVars(['commentaire' => $commentaire]);
         $email->viewBuilder()->setLayout('default');
         $email->viewBuilder()->setTemplate('signalement_commentaire');
         $email->setAttachments([WWW_ROOT . 'img/cake.png']);
