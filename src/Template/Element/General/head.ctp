@@ -1,7 +1,7 @@
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CakePHP Training</title>
+    <title>CakePHP 3 Training</title>
     <?= $this->Html->meta('icon', 'img/cake.png') ?>
     <?php
         //Attention à l'ordre des fichiers!
