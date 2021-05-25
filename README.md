@@ -1,6 +1,7 @@
 # Training
 I used :
 - CakePHP 3
+- jQuery 3.4.1
 - Boostrap 4.4.1
 - Bootstrap datetimepicker 4.17.47
 - Datatables
