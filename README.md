@@ -6,7 +6,7 @@ I used :
 - Bootstrap datetimepicker 4.17.47
 - Datatables
 - CKEditor
-- moment.js : management of dates
+- moment.js : date management
 
 # CakePHP Application Skeleton
 
