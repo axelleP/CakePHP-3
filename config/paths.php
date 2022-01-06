@@ -89,7 +89,7 @@ define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
 
 define('MODE_APP', 'dev');
-define('URL', 'http://localhost/CakePHP_3.8_training');
+define('URL', 'http://localhost/CakePHP_3_training');
 
 //define('MODE_APP', 'prod');
 //define('URL', 'http://cakephptraining.fr');
