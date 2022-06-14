@@ -22,9 +22,3 @@
 </table>
 
 <?= $this->Html->link('Retour', '/admin-commentaires/show-dashboard', ['class' => 'btn btn-secondary']) ?>
-
-<script type="text/javascript">
-    $(function() {
-        $('#menuCommentaire').attr('class', 'nav-link menuCourant');
-    });
-</script>

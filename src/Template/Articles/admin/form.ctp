@@ -27,10 +27,3 @@ echo $this->element('Admin/calendar', ['id' => 'dateCreation']);
 
 //ckeditor
 echo $this->element('Admin/ckeditor', ['name' => 'contenu']);
-?>
-
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        $('#menuArticle').attr('class', 'nav-link menuCourant');
-    });
-</script>

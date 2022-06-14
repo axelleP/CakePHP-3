@@ -15,10 +15,3 @@ if ($rubrique->isNew()) {
     echo $this->Form->button('Modifier');
 }
 echo $this->Form->end();
-?>
-
-<script type="text/javascript">
-    $(function() {
-        $('#menuRubrique').attr('class', 'nav-link menuCourant');
-    });
-</script>

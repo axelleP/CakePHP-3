@@ -23,10 +23,3 @@ echo $this->element('Admin/calendar', ['id' => 'dateCreation']);
 
 //ckeditor
 echo $this->element('Admin/ckeditor', ['name' => 'commentaire']);
-?>
-
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        $('#menuCommentaire').attr('class', 'nav-link menuCourant');
-    });
-</script>

@@ -24,9 +24,3 @@
 </table>
 
 <?= $this->Html->link('Retour', '/admin-articles/show-dashboard', ['class' => 'btn btn-secondary']) ?>
-
-<script type="text/javascript">
-    $(function() {
-        $('#menuArticle').attr('class', 'nav-link menuCourant');
-    });
-</script>
